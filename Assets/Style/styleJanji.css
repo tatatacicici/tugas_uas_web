@@ -1,0 +1,38 @@
+/*Form*/
+
+.card{
+    font-family: 'Quicksand', 'sans-serif';
+    font-weight: 700;
+}
+.card-header{
+    font-family: 'Quicksand', 'sans-serif';
+    font-weight: bold;
+    background-color: #FFD700;
+    color: black;
+}
+.backButton {
+    background-color: #F81F45;
+    color: #FFFFFF;
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+    border: none;
+}
+.nextButton {
+    background-color: #FFD700; !important;
+    color: #000000; !important;
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease; !important;
+    border: none;  !important;
+}
+
+.nextButton:hover {
+    color: #F81F45;!important;
+    background-color: #FFFFFF;!important;
+    border: black 4px; !important;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); !important;
+}
+.backButton:hover{
+    background-color: #FFD700; !important;
+    color: #000000; !important;
+    border: black 4px; !important;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); !important;
+}
+

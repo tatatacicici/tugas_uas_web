@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Website</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="Assets/Style/style.css" rel="stylesheet">
+    <!--Fonts    -->
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <a class="navbar-brand ml-4 pl-5" href="#">Paws & Whiskers Care</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#home">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#about">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#services">Services</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="Auth/login.php">Login</a>
+                </li>
+            </ul>
+            <a class="btn btn-primary appointment-link mr-5" href="Profil/reservasi.php" role="button">Reservasi</a>
+
+        </div>
+    </nav>
+    <!-- Hello -->
+    <section id="home">
+        <div class="Hello Awal">
+        <div class="cover"> </div>
+        <div class="container">
+            <div class="row">
+                <div class="col my-auto">
+                    <h2 class="selamat">Selamat Datang di</h2>
+                    <h1 class="paws">Paws & Whisker Care</h1>
+                    <p class="tagline">Tempat di Mana Sentuhan Lembut Menjadi Satu dengan Perawatan dan Cinta untuk Teman Berbulu Anda.</p>
+                </div>
+            </div>
+        </div>
+        </div>
+        <!-- Hello End -->
+        <!-- Tiga Menu-->
+        <div class="tiga-menu">
+            <div class="container mt-5">
+                <div class="row text-center justify-content-center align-items-center">
+                    <div class="col-md-4">
+                        <div class="container-gambar">
+                            <a href="Profil/reservasi.php">
+                                <img src="Assets/Images/reservasi.svg" class="img-fluid">
+                            </a>
+                        </div>
+                        <p>Lakukan Reservasi</p>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="container-gambar">
+                            <a href="Auth/signIn.php">
+                                <img src="Assets/Images/log-in.svg" class="img-fluid">
+                            </a>
+                        </div>
+                        <p>Jadi Member</p>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="container-gambar">
+                            <a href="jadwal.html">
+                                <img src="Assets/Images/dokter.svg" class="img-fluid">
+                            </a>
+                        </div>
+                        <p>Lihat Jadwal Praktik</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Tiga Menu END -->
+    <!-- About Us -->
+    <section id="about">
+        <div class="container about-container">
+            <h1 class="title text-center" style="color: white;">Tentang Kami</h1>
+            <div class="row p-5">
+                <div class="col text-center">
+                    <img src="Assets/Images/gambar1.jpg" alt="">
+                </div>
+                <div class="col text-white">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum dolore vitae aliquam eos tempora! Quidem voluptate temporibus nulla ea dignissimos iste quis eveniet. Omnis porro aperiam quasi nam quo adipisci?</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- About Us END -->
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!-- Script JS -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Get all section elements
+            var sections = document.querySelectorAll("section");
+
+            // Get the navbar links
+            var navLinks = document.querySelectorAll(".navbar-nav .nav-link");
+
+            // Add event listener for scroll
+            window.addEventListener("scroll", function() {
+                var currentScroll = window.scrollY;
+
+                // Check each section's position and update the active state
+                sections.forEach(function(section, index) {
+                    var sectionTop = section.offsetTop - 50; // Adjusted for better timing
+                    var sectionBottom = sectionTop + section.offsetHeight;
+
+                    if (currentScroll >= sectionTop && currentScroll <= sectionBottom) {
+                        // Remove the "active" class from all nav links
+                        navLinks.forEach(function(link) {
+                            link.classList.remove("active");
+                        });
+
+                        // Add the "active" class to the corresponding nav link
+                        navLinks[index].classList.add("active");
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
