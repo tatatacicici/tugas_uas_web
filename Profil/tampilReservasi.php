@@ -64,7 +64,7 @@ $tampilJanji = $db->tampilkanReservasi($email);
                                         <label for="jenis_hewan">Jenis Peliharaan</label>
                                         <?php
                                         $no = 1;
-                                        $tampilHewan = $db->tampilkanDataJenisHewan($reservasi['id']);
+                                        $tampilHewan = $db->tampil_jenis_hewan_id($reservasi['id']);
                                         foreach ($tampilHewan as $x){
                                         ?>
                                         <input type="text" class="form-control" id="jenis_hewan" name="jenis_hewan" value="<?= $x['nama_binatang'] ?>" readonly>
@@ -106,7 +106,7 @@ $tampilJanji = $db->tampilkanReservasi($email);
                             </div>
                             <div class="form-group mx-3">
                                 <button type="button" class="btn backButton" style="background-color: #FFD700;color: #000000;transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;border: none;">Back</button>
-                                <button type="button" class="btn nextButton">Next</button>
+                                <button type="button" class="btn nextButton"  style="background-color: #F81F45;color: #FFFFFF;transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;border: none;">Next</button>
                             </div>
                         </form>
                     <?php } else { ?>

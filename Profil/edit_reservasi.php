@@ -64,7 +64,15 @@ $tampilJanji = $db->tampilkanReservasi($email);
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="jenis_hewan">Jenis Peliharaan</label>
-                                        <input type="text" class="form-control" id="jenis_hewan" name="jenis_hewan[]" value="<?= $reservasi['jenis_hewan'] ?>" readonly>
+                                        <?php
+                                        $no = 1;
+                                        $tampilHewan = $db->tampil_jenis_hewan_id($reservasi['id']);
+                                        foreach ($tampilHewan as $x){
+                                        ?>
+                                        <input type="text" class="form-control" id="jenis_hewan" name="jenis_hewan" value="<?= $x['nama_binatang'] ?>" readonly>
+                                        <?php
+                                        }
+                                        ?>
                                     </div>
                                 </div>
                             <?php } ?>
@@ -96,7 +104,7 @@ $tampilJanji = $db->tampilkanReservasi($email);
                             <div class="form-group">
                                 <button type="button" class="btn backButton">Back</button>
                                 <button type="button" class="btn nextButton">Next</button>
-                                <button type="submit" class="btn float-right">Simpan Perubahan</button>
+                                <button type="submit" class="btn btnSave float-right">Simpan Perubahan</button>
                             </div>
                         </form>
                     <?php } else { ?>

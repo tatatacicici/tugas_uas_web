@@ -40,8 +40,7 @@ class Database
     public function tampilkanDataMemberReservasi($email)
     {
         $sql = "SELECT member.email, member.nama, member.jenis_kelamin, member.nomor_telepon, member.alamat,
-                    (SELECT GROUP_CONCAT(DISTINCT nama_hewan) FROM reservasi WHERE reservasi.email = member.email) AS nama_hewan,
-                    (SELECT GROUP_CONCAT(DISTINCT jenis_hewan) FROM reservasi WHERE reservasi.email = member.email) AS jenis_hewan
+                    (SELECT GROUP_CONCAT(DISTINCT nama_hewan) FROM reservasi WHERE reservasi.email = member.email) AS nama_hewan
             FROM member
             where email = :email";
         $query = $this->koneksi->prepare($sql);
@@ -51,7 +50,7 @@ class Database
         return $query->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function tampilkanDataJenisHewan($id){
+    public function tampil_jenis_hewan_id($id){
         $sql = "SELECT a.*, b.* FROM reservasi a
                 INNER JOIN jenis_hewan b ON b.id_hewan = a.jenis_hewan
                 where id = :id";
@@ -60,8 +59,9 @@ class Database
         $query->execute();
         return $query->fetchAll();
     }
-    public function tampil_jensi_hewan_email($email){
-        $sql = "SELECT a.*, b.* FROM reservasi a
+    public function tampil_jenis_hewan_email($email){
+        $sql = "SELECT a.*, b.*, GROUP_CONCAT(b.nama_binatang) as nama_binatang
+                FROM reservasi a 
                 INNER JOIN jenis_hewan b ON b.id_hewan = a.jenis_hewan
                 where email = :email";
         $query = $this->koneksi->prepare($sql);

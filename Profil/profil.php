@@ -68,10 +68,10 @@ $db = new Database();
                         <div class="form-group col-md-6">
                             <label for="inputJenisHewan">Jenis Hewan</label>
                             <?php
-                            $tampil_jenis_hewan = $db->tampil_jensi_hewan_email($email);
+                            $tampil_jenis_hewan = $db->tampil_jenis_hewan_email($email);
                             foreach ($tampil_jenis_hewan as $z){
                             ?>
-                            <input type="text" class="form-control" id="inputJenisHewan" value="<?php echo $urutan['jenis_hewan']; ?>" readonly>
+                            <input type="text" class="form-control" id="inputJenisHewan" value="<?php echo $z['nama_binatang']; ?>" readonly>
                             <?php
                             }
                             ?>

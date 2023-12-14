@@ -28,17 +28,17 @@
         transition: color 0.3s ease;
     }
     
-    /*.navbar-nav .nav-link::before {*/
-    /*    content: '';*/
-    /*    position: absolute;*/
-    /*    bottom: 0;*/
-    /*    left: 50%;*/
-    /*    width: 0;*/
-    /*    height: 2px;*/
-    /*    background-color: #F81F45;*/
-    /*    transform: translateX(-50%);*/
-    /*    transition: width 0.3s ease;*/
-    /*}*/
+    .navbar-nav .nav-link::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 0;
+        height: 2px;
+        background-color: #F81F45;
+        transform: translateX(-50%);
+        transition: width 0.3s ease;
+    }
     
     .navbar-nav .nav-link:hover {
         color: #F81F45;

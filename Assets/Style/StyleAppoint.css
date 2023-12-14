@@ -132,22 +132,35 @@
     transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
     border: none;
 }
-.btn .nextButton {
+.btn.nextButton {
     background-color: #FFD700;
     color: #000000;
     transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
     border: none;
 }
+.btn.btnSave{
+    background-color: #F81F45;
+    color: #FFFFFF;
+    transition: transform 0.3s ease;
+    border: none;
+}
 
-.nextButton:hover {
+.btn.btnSave:hover{
+    background-color: #F81F45;
+    color: #FFFFFF;
+    transition: transform 0.3s ease;
+    border: none;
+    transform: scale(1.1);
+}
+.btn.nextButton:hover {
     color: #F81F45;
     background-color: #FFFFFF;
     border: black 4px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
 }
-.backButton:hover{
-    background-color: #FFD700;
-    color: #000000;
+.btn.backButton:hover{
+    background-color: #FFFFFF;
+    color: #FFD700;
     border: black 4px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
 }
