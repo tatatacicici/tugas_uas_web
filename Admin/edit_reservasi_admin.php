@@ -14,10 +14,11 @@ include "../Database/config.php";
 $db = new Database();
 if(isset($_GET['id'])){
     $id_reservasi = $_GET['id'];
-    $data_reservasi = $db->tampil_reservasi_member($id_reservasi);
-    foreach ($data_reservasi as $index){
+    $data_reservasi = $db->tampil_reservasi_id($id_reservasi);
+    foreach ($db->login($email, $password) as $index) {
+        $roles = $index['roles'];
+        if($roles == 'admin'){
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -37,12 +38,11 @@ if(isset($_GET['id'])){
 </head>
 
 <body>
-<?php include "dashboard.php"; ?>
+<?php include "dashboard_admin.php"; ?>
 
 <div class="row">
     <div class="col my-auto kontainer">
         <h1 class="text-center mt-4 sub-judul">Edit Reservasi</h1>
-        <p class=" text-center isi">Anda bisa mengubah data atau mengganti jadwal di Paws & Whisker Care. Perubahan Jadwal hanya bisa jika jadwal masih satu minggu kedepan</p>
     </div>
 
 </div>
@@ -54,21 +54,21 @@ if(isset($_GET['id'])){
                 <div class="card-header" style="background-color: #FFD700"> Edit Reservasi</div>
                 <div class="card-body">
                     <form class="form-reservasi" action="../Database/edit_data_reservasi.php" method="post">
-                        <input type="hidden" name="id" value="<?php echo  $index['id']; ?>">
+                        <input type="hidden" name="id" value="<?php echo  $data_reservasi[0]['id']; ?>">
                         <!--Nama Hewan-->
                         <div class="form-group">
                             <label for="nama_hewan">Nama Hewan:</label>
-                            <input type="text" class="form-control" id="nama_hewan" name="nama_hewan" value="<?php echo $index['nama_hewan']; ?>" required>
-                        <!-- Jenis Hewan -->
-                        <div class="form-group">
-                            <label for="jenis_hewan">Jenis Peliharaan:</label>
-                            <input type="text" name="jenis_hewan" class="form-control" id="jenis_hewan" value="<?php echo $index['nama_binatang'];?>"readonly>
-                        </div>
+                            <input type="text" class="form-control" id="nama_hewan" name="nama_hewan" value="<?php echo $data_reservasi[0]['nama_hewan']; ?>" required>
+                            <!-- Jenis Hewan -->
+                            <div class="form-group">
+                                <label for="jenis_hewan">Jenis Peliharaan:</label>
+                                <input type="text" name="jenis_hewan" class="form-control" id="jenis_hewan" value="<?php echo $data_reservasi[0]['nama_binatang'];?>"readonly>
+                            </div>
                         </div>
                         <!-- Tanggal -->
                         <div class="form-group">
                             <label for="tanggal_reservasi">Tanggal Reservasi:</label>
-                            <input type="date" class="form-control" id="tanggal_reservasi" name="tanggal_reservasi" min="<?php echo date('Y-m-d', strtotime('+1 week')); ?>" max="<?php echo date('Y-m-d', strtotime('+1 month')); ?>"  value="<?php echo $index['tanggal_reservasi'];?>"required>
+                            <input type="date" class="form-control" id="tanggal_reservasi" name="tanggal_reservasi" min="<?php echo date('Y-m-d', strtotime('+1 week')); ?>" max="<?php echo date('Y-m-d', strtotime('+1 month')); ?>"  value="<?php echo $data_reservasi[0]['tanggal_reservasi'];?>"required>
                         </div>
                         <!--Waktu Reservasi-->
                         <div class="form-group">
@@ -104,8 +104,15 @@ if(isset($_GET['id'])){
 </body>
 </html>
 <?php
+        }else{
+        echo '<script>
+              alert("Akses Ditolak. Silahkan masukkan email dan password anda")
+              document.location="../index.html"</script>';
+        }
     }
 }else{
-    header('Location: tampilReservasi.php');
-}
+    echo '<script>
+          alert("Akses Ditolak. Silahkan masukkan email dan password anda")
+          document.location="../index.html"</script>';
+    }
 ?>

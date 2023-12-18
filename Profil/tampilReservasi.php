@@ -12,7 +12,7 @@ $email = $_SESSION['email'];
 
 include "../Database/config.php";
 $db = new Database();
-$tampilJanji = $db->tampilkanReservasi($email);
+$tampilJanji = $db->tampil_reservasi_email($email);
 
 ?>
 
@@ -45,121 +45,56 @@ $tampilJanji = $db->tampilkanReservasi($email);
 </div>
 
 <!-- Formulir Edit Reservasi -->
-<div class="container mt-5 kontainer">
+<div class="mt-5 container-fluid">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header" style="font-family: 'Quicksand', 'sans-serif'; font-weight: bold;background-color: #FFD700; color: black; ">Lihat Reservasi <span><?= $x['nama'] ?></span></div>
                 <div class="card-body">
-                    <!-- Formulir Edit Reservasi Goes Here -->
-                    <?php if (!empty($tampilJanji)) { ?>
-                        <form class="form-reservasi">
-                            <?php foreach ($tampilJanji as $index => $reservasi) { ?>
-                                <div class="form-row reservasi-container <?= $index === 0 ? 'active' : '' ?>">
-                                    <div class="form-group col-md-6">
-                                        <label for="nama_hewan">Nama Peliharaan</label>
-                                        <input type="text" class="form-control" id="nama_hewan"  name="nama_hewan" value="<?= $reservasi['nama_hewan'] ?>" readonly>
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="jenis_hewan">Jenis Peliharaan</label>
-                                        <?php
-                                        $no = 1;
-                                        $tampilHewan = $db->tampil_jenis_hewan_id($reservasi['id']);
-                                        foreach ($tampilHewan as $x){
-                                        ?>
-                                        <input type="text" class="form-control" id="jenis_hewan" name="jenis_hewan" value="<?= $x['nama_binatang'] ?>" readonly>
-                                        <?php
-                                        }
-                                        ?>
-                                    </div>
-                                    <!-- Tanggal Reservasi -->
-                                    <div class="form-group col-md-6">
-                                        <label for="tanggal_reservasi_baru">Tanggal Reservasi:</label>
-                                        <input type="text" class="form-control" id="tanggal_reservasi" name="tanggal_reservasi" value="<?= $reservasi['tanggal_reservasi'] ?>" readonly>
-                                    </div>
-                                    <!-- Waktu Reservasi -->
-                                    <div class="form-group col-md-6">
-                                        <label for="waktu_reservasi_baru">Waktu Reservasi:</label>
-                                        <input type="text" class="form-control" id="tanggal_reservasi" name="tanggal_reservasi" value="<?= $reservasi['waktu_reservasi'] ?>" readonly>
-                                    </div>
-                                    <!-- Dokter -->
-                                    <div class="form-group col-md-6">
-                                        <label>Dokter:</label>
-                                        <?php
-                                        $no = 1;
-                                        $tampilDokter = $db->tampilkanDataDokter($reservasi['id']);
-                                        foreach ($tampilDokter as $x){
-                                        ?>
-                                        <input type="text" class="form-control"  value="<?= $x['nama_dokter'] ?>" readonly>
-                                        <?php
-                                        }
-                                        ?>
-                                    </div>
-                                    <!-- Keluhan-->
-                                    <div class="form-group col-md-6">
-                                        <label for="waktu_reservasi_baru">Keluhan:</label>
-                                        <input type="text" class="form-control" id="tanggal_reservasi" name="tanggal_reservasi" value="<?= $reservasi['keluhan'] ?>" readonly>
-                                    </div>
-
-                                </div>
-                            <?php } ?>
-                            </div>
-                            <div class="form-group mx-3">
-                                <button type="button" class="btn backButton" style="background-color: #FFD700;color: #000000;transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;border: none;">Back</button>
-                                <button type="button" class="btn nextButton"  style="background-color: #F81F45;color: #FFFFFF;transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;border: none;">Next</button>
-                            </div>
-                        </form>
-                    <?php } else { ?>
-                        <p>Tidak ada janji.</p>
-                    <?php } ?>
+                    <?php if (!empty($tampilJanji)) {?>
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th scope="col">No</th>
+                            <th scope="col">Nama Hewan</th>
+                            <th scope="col">Jenis Hewan</th>
+                            <th scope="col">Tanggal Reservasi</th>
+                            <th scope="col">Waktu Reservasi</th>
+                            <th scope="col">Keluhan</th>
+                            <th scope="col">Ubah Reservasi</th>
+                            <th scope="col">Batalkan Reservasi</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                           <?php $no = 1;
+                            foreach ($tampilJanji as $reservasi) { ?>
+                        <tr>
+                            <th scope="row"><?php echo $no++?></th>
+                            <td><?php echo $reservasi['nama_hewan']; ?></td>
+                            <td><?php echo $reservasi['nama_binatang']; ?></td>
+                            <td><?php echo $reservasi['tanggal_reservasi']; ?></td>
+                            <td><?php echo $reservasi['waktu_reservasi']; ?></td>
+                            <td><?php echo $reservasi['keluhan']; ?></td>
+                            <td><button class="btn btn-edit"><a href="edit_reservasi.php?id=<?php echo $reservasi['id']; ?>">Edit Reservasi</a></button></td>
+                            <td><button class="btn btn-hapus"><a href="batal_reservasi.php?id=<?php echo $reservasi['id']; ?>">Batal Reservasi</a></button></td>
+                        </tr>
+                        </tbody>
+                        <?php } ?>
+                        <?php } else { ?>
+                            <p>Tidak ada janji.</p>
+                        <?php } ?>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+
 <!-- Bootstrap JS and dependencies -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<script>
-    // Script JavaScript untuk mengatur tampilan formulir dengan tombol Next dan Back
-    var currentIndex = 0;
-    var reservasiContainers = document.querySelectorAll('.reservasi-container');
-    var nextButton = document.querySelector('.nextButton');
-    var backButton = document.querySelector('.backButton');
-
-    // Sembunyikan semua elemen kecuali yang pertama
-    for (var i = 1; i < reservasiContainers.length; i++) {
-        reservasiContainers[i].style.display = 'none';
-    }
-
-    nextButton.addEventListener('click', function () {
-        // Sembunyikan elemen saat ini
-        reservasiContainers[currentIndex].style.display = 'none';
-
-        // Pindah ke elemen berikutnya atau kembali ke yang pertama jika sudah di akhir
-        currentIndex = (currentIndex + 1) % reservasiContainers.length;
-
-        // Tampilkan elemen berikutnya
-        reservasiContainers[currentIndex].style.display = 'flex';
-        console.log(currentIndex)
-    });
-
-    backButton.addEventListener('click', function () {
-        // Sembunyikan elemen saat ini
-        reservasiContainers[currentIndex].style.display = 'none';
-
-        // Pindah ke elemen sebelumnya atau ke yang terakhir jika sudah di awal
-        currentIndex = (currentIndex - 1 + reservasiContainers.length) % reservasiContainers.length;
-
-        // Tampilkan elemen sebelumnya
-        reservasiContainers[currentIndex].style.display = 'flex';
-        console.log(currentIndex)
-
-    });
-</script>
-
 </body>
 
 </html>

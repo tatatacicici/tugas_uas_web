@@ -11,9 +11,7 @@ if (!isset($_SESSION['email'])) {
 }
 
 $email = $_SESSION['email'];
-
-// Mendapatkan data member
-$memberData = $db->tampilkanDataMemberByEmail($email);
+$data_member = $db->tampil_member_email($email);
 
 ?>
 
@@ -39,27 +37,34 @@ $memberData = $db->tampilkanDataMemberByEmail($email);
                 <div class="card-body">
                     <!-- Form Edit Member -->
                     <form action="../Database/edit_data_member.php" method="post">
+                        <?php
+                        foreach ($data_member as $index){
+                        ?>
                         <div class="form-group">
                             <label for="nama">Nama:</label>
-                            <input type="text" class="form-control" id="nama" name="nama" value="<?php echo $memberData['nama']; ?>" required>
+                                <input type="text" class="form-control" id="nama" name="nama" value="<?php echo $index['nama']; ?>" required>
                         </div>
                         <div class="form-group">
                             <label for="jenis_kelamin">Jenis Kelamin:</label>
                             <select class="form-control" id="jenis_kelamin" name="jenis_kelamin" required>
-                                <option value="Laki-laki" <?php echo ($memberData['jenis_kelamin'] === 'Laki-laki') ? 'selected' : ''; ?>>Laki-laki</option>
-                                <option value="Perempuan" <?php echo ($memberData['jenis_kelamin'] === 'Perempuan') ? 'selected' : ''; ?>>Perempuan</option>
+                                <option value="Laki-laki" <?php echo ($index['jenis_kelamin'] === 'Laki-laki') ? 'selected' : ''; ?>>Laki-laki</option>
+                                <option value="Perempuan" <?php echo ($index['jenis_kelamin'] === 'Perempuan') ? 'selected' : ''; ?>>Perempuan</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="nomor_telepon">Nomor Telepon:</label>
-                            <input type="tel" class="form-control" id="nomor_telepon" name="nomor_telepon" value="<?php echo $memberData['nomor_telepon']; ?>" required>
+                            <input type="tel" class="form-control" id="nomor_telepon" name="nomor_telepon" value="<?php echo $index['nomor_telepon']; ?>" required>
                         </div>
                         <div class="form-group">
                             <label for="alamat">Alamat:</label>
-                            <textarea class="form-control" id="alamat" name="alamat" rows="3" required><?php echo $memberData['alamat']; ?></textarea>
+                            <textarea class="form-control" id="alamat" name="alamat" rows="3" required><?php echo $index['alamat']; ?></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                        <?php
+                        }
+                        ?>
                     </form>
+
                 </div>
             </div>
         </div>

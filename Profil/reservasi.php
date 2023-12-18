@@ -90,7 +90,7 @@
                                     <select class="form-control" id="jenis_hewan" name="jenis_hewan" required>
                                         <option value="--"></option>
                                         <?php
-                                            $pdo_statement = $db->koneksi->prepare("SELECT * FROM jenis_hewan");
+                                            $pdo_statement = $db->koneksi->prepare("SELECT * FROM jenis_peliharaan");
                                             $pdo_statement->execute();
                                             $result = $pdo_statement->fetchAll();
                                             $no = 1;
@@ -111,7 +111,7 @@
                                     <select class="form-control" id="dokter" name="dokter" required>
                                         <option value="--"></option>
                                         <?php
-                                        $pdo_statement = $db->koneksi->prepare("SELECT * FROM dokter");
+                                        $pdo_statement = $db->koneksi->prepare("SELECT * FROM data_dokter");
                                         $pdo_statement->execute();
                                         $result = $pdo_statement->fetchAll();
                                         $no = 1;
@@ -131,7 +131,7 @@
                                     <label for="waktu_reservasi">Waktu Reservasi:</label>
                                     <select class="form-control" id="waktu_reservasi" name="waktu_reservasi" required>
                                         <?php
-                                        $pdo_statement = $db->koneksi->prepare("SHOW COLUMNS FROM reservasi WHERE Field = 'waktu_reservasi'");
+                                        $pdo_statement = $db->koneksi->prepare("SHOW COLUMNS FROM reservation WHERE Field = 'waktu_reservasi'");
                                         $pdo_statement->execute();
                                         $result = $pdo_statement->fetch(PDO::FETCH_ASSOC);
                                         $enum_values = explode("','", substr($result['Type'], 6, -2));

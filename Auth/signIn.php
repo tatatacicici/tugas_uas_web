@@ -31,7 +31,7 @@
                             <label for="jenis_kelamin">Jenis Kelamin:</label>
                             <div>
                                 <?php
-                                $pdo_statement = $db->koneksi->prepare("SHOW COLUMNS FROM member WHERE Field = 'jenis_kelamin'");
+                                $pdo_statement = $db->koneksi->prepare("SHOW COLUMNS FROM members WHERE Field = 'jenis_kelamin'");
                                 $pdo_statement->execute();
                                 $result = $pdo_statement->fetch(PDO::FETCH_ASSOC);
 

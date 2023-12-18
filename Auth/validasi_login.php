@@ -5,17 +5,21 @@
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    $result = $db->login($email, $password);
-
-    if (!empty($result)) {
+    foreach ($db->login($email, $password) as $result) {
         session_start();
         $_SESSION["email"] = $email;
         $_SESSION["password"] = $password;
-        header('Location: ../Profil/profil.php');
-        } else {
+        $pass = $result['password'];
+        $roles = $result['roles'];
+        if ($roles == 'admin')
+            header('Location: ../Admin/data_member.php');
+        else if ($roles == 'user')
+            header('Location: ../Profil/profil.php');
+        else {
             echo '<script>
                  alert("Password Salah");
                  document.location="login.php";
                 </script>';
         }
+}
 ?>

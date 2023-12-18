@@ -9,9 +9,9 @@ if (!isset($_SESSION['email'])) {
 
 $email = $_SESSION['email'];
 $password = $_SESSION['password'];
-
 include "../Database/config.php";
 $db = new Database();
+$data_profil = $db->tampil_profil_member($email);
 ?>
 
 <!DOCTYPE html>
@@ -41,73 +41,75 @@ $db = new Database();
         </div>
         <div class="card">
             <div class="card card-body">
-                <?php foreach ($tampilData as $index => $urutan){
+                <?php foreach ($data_profil as $index){
                 ?>
                 <form>
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="inputNama">Nama</label>
-                            <input type="text" class="form-control" id="inputNama" value="<?php echo $urutan['nama']; ?>" readonly>
+                            <input type="text" class="form-control" id="inputNama" value="<?php echo $index['nama']; ?>" readonly>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="inputJenisKelamin">Jenis Kelamin</label>
-                            <input type="text" class="form-control" id="inputJenisKelamin" value="<?php echo $urutan['jenis_kelamin']; ?>" readonly>
+                            <input type="text" class="form-control" id="inputJenisKelamin" value="<?php echo $index['jenis_kelamin']; ?>" readonly>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="inputEmail">Email</label>
-                            <input type="email" class="form-control" id="inputEmail" value="<?php echo $urutan['email']; ?>" readonly>
+                            <input type="email" class="form-control" id="inputEmail" value="<?php echo $index['email']; ?>" readonly>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="inputNomorTelepon">Nomor Telepon</label>
-                            <input type="text" class="form-control" id="inputNomorTelepon" value="<?php echo $urutan['nomor_telepon']; ?>" readonly>
+                            <input type="text" class="form-control" id="inputNomorTelepon" value="<?php echo $index['nomor_telepon']; ?>" readonly>
                         </div>
                     </div>
+                    <?php
+                    $data_peliharaan = $db->tampil_reservasi_profil($email);
+                    foreach ($data_peliharaan as $peliharan){
+                    ?>
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="inputJenisHewan">Jenis Hewan</label>
-                            <?php
-                            $tampil_jenis_hewan = $db->tampil_jenis_hewan_email($email);
-                            foreach ($tampil_jenis_hewan as $z){
-                            ?>
-                            <input type="text" class="form-control" id="inputJenisHewan" value="<?php echo $z['nama_binatang']; ?>" readonly>
-                            <?php
-                            }
-                            ?>
+                            <input type="text" class="form-control" id="inputJenisHewan" value="<?php echo $peliharan['nama_binatang']; ?>" readonly>
                         </div>
+
                         <div class="form-group col-md-6">
                             <label for="inputAlamat">Alamat</label>
-                            <input type="text" class="form-control" id="inputAlamat" value="<?php echo $urutan['alamat']; ?>" readonly>
+                            <input type="text" class="form-control" id="inputAlamat" value="<?php echo $index['alamat']; ?>" readonly>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-4">
                             <label for="inputNamaHewan">Nama Peliharaan</label>
-                            <input type="text" class="form-control" id="inputNamaHewan" value="<?php echo $x['nama_hewan']; ?>" readonly>
+                            <input type="text" class="form-control" id="inputNamaHewan" value="<?php echo $peliharan['nama_hewan']; ?>" readonly>
                         </div>
-                        <div class="form-group col-md-4">
-                            <?php
-                            foreach ($tampilData as $x) {
-                                echo '<a href="javascript:void(0);" class="btn btn-primary" style="background-color: #F81F45; color: #FFFFFF; font-family: Poppins, sans-serif; position: absolute; bottom: 0; right: 0; border: none" onclick="hapusProfil(\'' . $x['email'] . '\')">';
-                                echo '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">';
-                                echo '<path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"/>';
-                                echo '</svg>';
-                                echo 'Hapus Profil</a>';
-                            }
-                            ?>
+                    </div>
+                    <?php
+                    }
+                    ?>
+                    <div class="form-row flex">
+                        <div class="form-group ">
+                            <button class="btn btn-hapus align-items-end" style="background-color: #F81F45;">
+                                <a href="../Database/hapus_profil.php?email=<?php echo $index['email'];?>" onclick="hapusProfil();" style="color: white; text-decoration: none">Hapus Profil
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+                                        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+                                    </svg>
+                                </a>
+                            </button>
+                            <button class="btn btn-hapus align-items-end" style="background-color: #FFD700;">
+                                <a href="edit_member.php" style="color: black; text-decoration: none">Edit Profil
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+                                    </svg>
+                                </a>
+                            </button>
+                            </button>
                         </div>
-                        <div class="form-group col-md-4">
-                            <?php
-                            foreach ($tampilData as $x) {
-                                echo '<a href="edit_member.php" class="btn btn-primary float-end" style="background-color: #FFD700; color: black; font-family: Poppins, sans-serif; position: absolute; bottom: 0; right: 0; border: none">';
-                                echo '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">';
-                                echo '<path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>';
-                                echo '<path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>';
-                                echo '</svg>';
-                                echo ' Edit Profil</a>';
-                            }
-                            ?>
+                        <div class="form-group col-6">
+
                         </div>
                     </div>
                 </form>
@@ -125,14 +127,8 @@ $db = new Database();
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script>
-    function hapusProfil(email) {
-        // Munculkan konfirmasi
-        var konfirmasi = confirm('Apakah Anda yakin ingin menghapus profil?');
-
-        if (konfirmasi) {
-            // Redirect ke halaman yang menangani penghapusan profil
-            window.location.href = '../Database/hapus_profil.php?email=' + email;
-        }
+    function hapusProfil() {
+        return confirm("Apakah anda yakin ingin menghapus akun ?");
     }
 </script>
 

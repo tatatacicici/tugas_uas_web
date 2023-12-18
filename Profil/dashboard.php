@@ -65,12 +65,14 @@
     <div class="container-fluid">
         <a class="navbar-brand mx-4" href="#">
             <?php
-            $tampilData = $db->tampilkanDataMemberReservasi($email);
-            foreach ($tampilData as $x) {
+            $data_reservasi = $db->tampil_profil_member($email);
+            foreach ($data_reservasi as $x) {
+            ?>
+           <p class="mr-5 mb-0">Selamat Datang <span><?php echo $x['nama']; ?></span></p>
+            <?php
 
             }
             ?>
-           <p class="mr-5 mb-0">Selamat Datang <span><?php echo $x['nama']; ?></span></p>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" aria-controls="offcanvas">
 
@@ -107,8 +109,6 @@
             <li class="list-group-item active p-2"><a href="profil.php" style="color: black; text-decoration: none; font-family: 'Poppins', sans-serif" >Profil</a></li>
             <li class="list-group-item p-2"><a href="tampilReservasi.php" style="color: black; text-decoration: none; font-family: 'Poppins', sans-serif">Lihat Reservasi</a></li>
             <li class="list-group-item p-2"><a href="reservasi_Profil.php" style="color: black; text-decoration: none; font-family: 'Poppins', sans-serif">Tambah Reservasi</a></li>
-            <li class="list-group-item p-2"><a href="edit_reservasi.php" style="color: black; text-decoration: none; font-family: 'Poppins', sans-serif">Edit Reservasi</a></li>
-            <li class="list-group-item p-2"><a href="hapus_reserbasi.php" style="color: black; text-decoration: none; font-family: 'Poppins', sans-serif">Hapus Reservasi</a></li>
         </ul>
     </div>
 </div>
@@ -116,21 +116,5 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
-<script>
-    $(document).ready(function () {
-        var offcanvasScrolling = new bootstrap.Offcanvas(document.getElementById('offcanvasScrolling'));
-
-        offcanvasScrolling._element.addEventListener('shown.bs.offcanvas', function () {
-            // Geser kontainer ke kanan ketika offcanvas ditampilkan
-            $('.kontainer').css('transform', 'translateX(200px)');
-        });
-
-        offcanvasScrolling._element.addEventListener('hidden.bs.offcanvas', function () {
-            // Kembalikan kontainer ke posisi semula ketika offcanvas disembunyikan
-            $('.kontainer').css('transform', 'translateX(0)');
-        });
-    });
-</script>
-
 </body>
 </html>
