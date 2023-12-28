@@ -28,6 +28,12 @@ $data_member = $db->tampil_member_email($email);
 
 <body>
 <?php include "dashboard.php"; ?>
+<div class="row">
+    <div class="col my-auto kontainer">
+        <h1 class="text-center mt-4 sub-judul">Edit Member</h1>
+        <p class="text-center isi">Anda dapat mengubah akun member anda di web Paws & Whisker Care.</p>
+    </div>
+</div>
 
 <div class="container mt-5 kontainer">
     <div class="row justify-content-center">

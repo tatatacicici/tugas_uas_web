@@ -62,7 +62,6 @@ class Database
         $query = $this->koneksi->prepare($sql);
         $query->bindParam(':email', $email);
         $query->execute();
-        // Mengembalikan hasil query sebagai array associative
         return $query->fetchAll(PDO::FETCH_ASSOC);
     }
     public function tampil_reservasi_email($email){
@@ -134,10 +133,11 @@ class Database
 
     public function cekJumlahReservasi($waktu_reservasi)
     {
-        $sql = "SELECT COUNT(*) as jumlah FROM reservation WHERE waktu_reservasi = :waktu_reservasi AND tanggal_reservasi = :tanggal_reservasi";
+        $sql = "SELECT COUNT(*) as jumlah FROM reservation 
+              WHERE waktu_reservasi = :waktu_reservasi AND tanggal_reservasi = :tanggal_reservasi";
         $query = $this->koneksi->prepare($sql);
         $query->bindParam(':waktu_reservasi', $waktu_reservasi);
-        $query->bindParam(':tanggal_reservasi', $_POST['tanggal']); // Menggantinya sesuai dengan nama field pada form
+        $query->bindParam(':tanggal_reservasi', $_POST['tanggal']);
         $query->execute();
         $result = $query->fetch(PDO::FETCH_ASSOC);
         return $result['jumlah'];
@@ -153,7 +153,8 @@ class Database
     //update data
     public function editMember($email, $nama, $jenis_kelamin, $nomor_telepon, $alamat)
     {
-        $sql = "UPDATE members SET nama = :nama, jenis_kelamin = :jenis_kelamin, nomor_telepon = :nomor_telepon, alamat = :alamat WHERE email = :email";
+        $sql = "UPDATE members SET nama = :nama, jenis_kelamin = :jenis_kelamin, nomor_telepon = :nomor_telepon,
+                alamat = :alamat WHERE email = :email";
         $query = $this->koneksi->prepare($sql);
         $query->bindParam(':nama', $nama);
         $query->bindParam(':jenis_kelamin', $jenis_kelamin);
@@ -163,7 +164,8 @@ class Database
         $query->execute();
     }
     public function edit_reservasi($id, $nama_hewan, $tanggal_reservasi, $waktu_reservasi){
-        $sql = "UPDATE reservation SET nama_hewan = :nama_hewan, tanggal_reservasi = :tanggal_reservasi, waktu_reservasi = :waktu_reservasi
+        $sql = "UPDATE reservation SET nama_hewan = :nama_hewan, tanggal_reservasi = :tanggal_reservasi, 
+                waktu_reservasi = :waktu_reservasi
                 WHERE id = :id";
         $query = $this->koneksi->prepare($sql);
         $query->bindParam(':nama_hewan', $nama_hewan);

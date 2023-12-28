@@ -77,8 +77,18 @@ foreach ($db->login($email, $password) as $index) {
             <td><?php echo $reservasi['nama_dokter']; ?></td>
             <td><?php echo $reservasi['keluhan']; ?></td>
             <td><?php echo $reservasi['status']; ?></td>
+            <?php
+                if($reservasi['status'] != 'Dibatalkan'){
+            ?>
             <td><a href="edit_reservasi_admin.php?id=<?php echo $reservasi['id']; ?>"><button class="btn btn-edit">Edit Reservasi</button></a></td>
             <td><a href="hapus_reservasi_admin.php?id=<?php echo $reservasi['id']; ?>"><button class="btn btn-hapus">Batal Reservasi</button></a></td>
+            <?php
+                }
+                else{
+                   echo '<td>Sudah Dibatalkan</td>';
+                    echo '<td>Sudah Dibatalkan</td>';
+                }
+            ?>
         </tr>
         </tbody>
         <?php } ?>

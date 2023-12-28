@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="Assets/Style/style.css" rel="stylesheet">
+    <title>Dokter Kami</title>
+</head>
+<body>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg sticky-top">
+    <div class="container-fluid">
+        <a class="navbar-brand ml-4  pl-5" href="#">Paws & Whiskers Care</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mx-auto ">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html#home">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html#about">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Services</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="Auth/login.php">Login</a>
+                </li>
+            </ul>
+            <a class="btn btn-primary appointment-link" href="Profil/reservasi.php" role="button">Reservasi</a>
+        </div>
+    </div>
+</nav>
+<!--Konten-->
+<div>
+<h1 class="text-center mt-3">Kami Kenalkan Para Dokter Kami</h1>
+</div>
+<div class="container">
+    <div class="row row-cols-2">
+        <div class="col-sm-3 mb-3 mb-sm-0">
+            <div class="card">
+                <img src="/Assets/Images/dokter_2.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Drh. Andrea Silalahi</h5>
+                    <p class="card-text">Dokter Hewan Berpengalaman dengan Kelembutan Seperti Hewan Peliharaan Anda .</p>
+                    <button type="button" class="btn tombol-dokter" data-bs-toggle="modal" data-bs-target="#dokter1">
+                        Lebih lanjut
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3 mb-3">
+            <div class="card">
+                <img src="/Assets/Images/dokter_1.jpg" class="card-img-top" alt="drh lily">
+                <div class="card-body">
+                    <h5 class="card-title">Drh. Lily Syalita</h5>
+                    <p class="card-text">Pelayanan Medis Terdepan dengan Sentuhan Kecantikan.</p>
+                    <button type="button" class="btn tombol-dokter" data-bs-toggle="modal" data-bs-target="#dokter2">
+                        Lebih lanjut
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3 mb-3">
+            <div class="card">
+                <img src="/Assets/Images/dokter_3.jpg" class="card-img-top" alt="drh joko">
+                <div class="card-body">
+                    <h5 class="card-title">Drh. Joko Arifin</h5>
+                    <p class="card-text">Menginspirasi Kesehatan Hewan dengan Pendekatan Holistik .</p>
+                    <button type="button" class="btn tombol-dokter" data-bs-toggle="modal" data-bs-target="#dokter3">
+                        Lebih lanjut
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3 mb-3">
+            <div class="card">
+                <img src="/Assets/Images/dokter_4.jpg" class="card-img-top" alt="drh merilyn">
+                <div class="card-body">
+                    <h5 class="card-title">Drh. Merilyn Dove</h5>
+                    <p class="card-text">Mendukung Kesehatan Hewan dengan Perawatan Istimewa .</p>
+                    <button type="button" class="btn tombol-dokter" data-bs-toggle="modal" data-bs-target="#dokter4">
+                        Lebih lanjut
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+<!--Konten End-->
+    <!-- Modal -->
+    <div class="modal fade" id="dokter1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel1">Drh. Andrea Silalahi</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img class="img-fluid" src="Assets/Images/dokter_2.jpg" alt="drh.silalahi">
+                    <p class="flex-wrap">Drh. Andrea Silalahi, seorang profesional dalam dunia kesehatan hewan, menghadirkan kombinasi unik antara keahlian medis dan kasih sayang terhadap hewan peliharaan. Dengan pengalaman yang luas, Drh. Andrea siap memberikan perawatan terbaik untuk menjaga kesehatan dan kesejahteraan hewan kesayangan Anda. Percayakan peliharaan Anda kepada seorang ahli yang tidak hanya memiliki keterampilan klinis, tetapi juga kelembutan hati.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn tombol-dokter" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="dokter2" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel2">Drh. Lily Syalita</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img class="img-fluid" src="Assets/Images/dokter_1.jpg" alt="drh.lily">
+                    <p class="flex-wrap">Drh. Lily Syalita, seorang dokter hewan berdedikasi, tidak hanya menjunjung tinggi keahlian medis, tetapi juga memberikan sentuhan kecantikan pada pelayanan hewan kesayangan Anda. Dengan perawatan yang disesuaikan dan penanganan yang teliti, Drh. Lily memberikan layanan medis yang lebih dari sekadar pengobatan—ia merawat hewan peliharaan Anda dengan cinta dan kelembutan</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn tombol-dokter" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="dokter3" tabindex="-1" aria-labelledby="exampleModalLabel3" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel3">Drh. Joko Arifin</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img class="img-fluid" src="Assets/Images/dokter_3.jpg" alt="drh.joko">
+                    <p class="flex-wrap">Drh. Joko Arifin, seorang praktisi kesehatan hewan yang berdedikasi, membawa pendekatan holistik dalam merawat hewan kesayangan. Dengan pengetahuan yang mendalam tentang kesehatan secara menyeluruh, Drh. Joko tidak hanya fokus pada gejala penyakit, tetapi juga memahami kebutuhan emosional dan lingkungan hewan. Dalam tangan beliau, hewan peliharaan Anda akan merasakan perawatan menyeluruh yang membawa keseimbangan dan kebahagiaan.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn tombol-dokter" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="dokter4" tabindex="-1" aria-labelledby="exampleModalLabel4" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel4">Drh. Merilyn Dove</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img class="img-fluid" src="Assets/Images/dokter_4.jpg" alt="drh.merilyn">
+                    <p class="flex-wrap">Drh. Merilyn Dove, seorang dokter hewan dengan kepekaan khusus terhadap kebutuhan hewan, siap memberikan perawatan istimewa untuk hewan kesayangan Anda. Dengan perhatian terhadap detail dan kecintaan pada setiap makhluk, Drh. Merilyn menawarkan solusi perawatan yang disesuaikan, membantu hewan peliharaan Anda mencapai kesehatan optimal. Kepercayaan Anda adalah prioritasnya, dan ia berkomitmen untuk memberikan yang terbaik bagi hewan kesayangan Anda.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn tombol-dokter" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -44,7 +44,6 @@ if(isset($_GET['id'])){
 <div class="row">
     <div class="col my-auto kontainer">
         <h1 class="text-center mt-4 sub-judul">Hapus Reservasi</h1>
-        <p class=" text-center isi">Anda bisa membatalkan jadwal di Paws & Whisker Care. Perubahan Jadwal hanya bisa jika jadwal masih satu minggu kedepan</p>
     </div>
 
 </div>

@@ -14,7 +14,7 @@ include "../Database/config.php";
 $db = new Database();
 if(isset($_GET['id'])){
     $id_reservasi = $_GET['id'];
-    $data_reservasi = $db->tampil_reservasi_id($id_reservasi);
+    $data_reservasi = $db->tampil_reservasi_member($id_reservasi);
     foreach ($data_reservasi as  $index){
 ?>
 

@@ -3,9 +3,8 @@ session_start();
 
 include('config.php');
 
-// Check if the referrer is the dashboard page (assuming the dashboard URL)
 $referrer = $_SERVER['HTTP_REFERER'];
-$dashboardUrl = 'http://localhost/dokter_hewan/Profil/reservasi_Profil.php'; // Change this to the actual URL of your dashboard
+$dashboardUrl = 'http://localhost/dokter_hewan/Profil/reservasi_Profil.php';
 
 if (strpos($referrer, $dashboardUrl) !== false && isset($_SESSION['email'])) {
 

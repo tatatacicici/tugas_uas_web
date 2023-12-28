@@ -32,6 +32,10 @@
     background-color: #F81F45;
     transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 }
+.btn.btnSave{
+    background-color: #F81F45;
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
 
 .btn.btn-edit:hover{
     background-color: #FFD700;

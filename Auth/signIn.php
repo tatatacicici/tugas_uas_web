@@ -35,7 +35,6 @@
                                 $pdo_statement->execute();
                                 $result = $pdo_statement->fetch(PDO::FETCH_ASSOC);
 
-                                // Extract ENUM values from the column definition
                                 $enum_values = explode("','", substr($result['Type'], 6, -2));
 
                                 foreach ($enum_values as $value) {

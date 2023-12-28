@@ -10,8 +10,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reservasi - Paws & Whiskers Care</title>
     <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
     <!-- Custom CSS -->
     <link href="../Assets/Style/StyleAppoint.css" rel="stylesheet">
     <!--Fonts    -->
@@ -22,24 +22,30 @@
 
 <body>
     <!-- Navbar -->
+    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg sticky-top">
-        <a class="navbar-brand ml-4 pl-5" href="#">Paws & Whiskers Care</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav mx-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="../index.html#home">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="../index.html#about">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="../index.html#services">Services</a>
-                </li>
-            </ul>
-            <a class="btn btn-primary appointment-link mr-4" href="#" role="button">Appointment</a>
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Paws & Whiskers Care</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mx-auto ">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../dokter.html">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../Auth/login.php">Login</a>
+                    </li>
+                </ul>
+                <a class="btn btn-primary appointment-link " href="#" role="button">Reservasi</a>
+            </div>
         </div>
     </nav>
     <!-- Selamat Datang -->
@@ -134,14 +140,12 @@
                                         $pdo_statement = $db->koneksi->prepare("SHOW COLUMNS FROM reservation WHERE Field = 'waktu_reservasi'");
                                         $pdo_statement->execute();
                                         $result = $pdo_statement->fetch(PDO::FETCH_ASSOC);
-                                        $enum_values = explode("','", substr($result['Type'], 6, -2));
-                                        foreach ($enum_values as $value) {
-                                            // Pemanggilan fungsi cekJumlahReservasi
-                                            $jumlahReservasi = $db->cekJumlahReservasi($value);
-
-                                            // Menampilkan opsi dropdown
-                                            echo '<option value="' . $value . '" ' . ($jumlahReservasi >= 7 ? 'disabled' : '') . '>' . $value . '</option>';
-                                        }                                        ?>
+                                        $jenis_kelamin = explode("','", substr($result['Type'], 6, -2));
+                                        foreach ($jenis_kelamin as $jk) {
+                                            $jumlahReservasi = $db->cekJumlahReservasi($jk);
+                                            echo '<option value="' . $jk . '" ' . ($jumlahReservasi >= 7 ? 'disabled' : '') . '>' . $jk . '</option>';
+                                        }
+                                        ?>
                                     </select>
                                 </div>
                                 <!--Keluhan-->
@@ -151,19 +155,17 @@
                                         <textarea name="keluhan" id="keluhan"  rows="5" cols="80" required></textarea>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn float-right">Submit Reservasi</button>
+                                <button type="submit" class="btn btnSave float-end">Submit Reservasi</button>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-
     <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
 </body>
 
 </html>

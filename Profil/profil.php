@@ -22,7 +22,7 @@ $data_profil = $db->tampil_profil_member($email);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile</title>
     <!-- Include Bootstrap CSS if needed -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <!-- Your custom styles go here -->
     <link href="../Assets/Style/styleProfil.css" rel="stylesheet">
 </head>
@@ -44,18 +44,18 @@ $data_profil = $db->tampil_profil_member($email);
                 <?php foreach ($data_profil as $index){
                 ?>
                 <form>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="inputNama">Nama</label>
-                            <input type="text" class="form-control" id="inputNama" value="<?php echo $index['nama']; ?>" readonly>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="inputJenisKelamin">Jenis Kelamin</label>
-                            <input type="text" class="form-control" id="inputJenisKelamin" value="<?php echo $index['jenis_kelamin']; ?>" readonly>
-                        </div>
+                    <div class="row align-items-start">
+                            <div class="form-group col col-md-6">
+                                <label for="inputNama">Nama</label>
+                                <input type="text" class="form-control" id="inputNama" value="<?php echo $index['nama']; ?>" readonly>
+                            </div>
+                            <div class="form-group col col-md-6">
+                                <label for="inputJenisKelamin">Jenis Kelamin</label>
+                                <input type="text" class="form-control" id="inputJenisKelamin" value="<?php echo $index['jenis_kelamin']; ?>" readonly>
+                            </div>
                     </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
+                    <div class="row align-items-start">
+                        <div class="form-group col col-md-6">
                             <label for="inputEmail">Email</label>
                             <input type="email" class="form-control" id="inputEmail" value="<?php echo $index['email']; ?>" readonly>
                         </div>
@@ -68,19 +68,12 @@ $data_profil = $db->tampil_profil_member($email);
                     $data_peliharaan = $db->tampil_reservasi_profil($email);
                     foreach ($data_peliharaan as $peliharan){
                     ?>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
+                    <div class="row align-items-start">
+                        <div class="form-group col col-md-6">
                             <label for="inputJenisHewan">Jenis Hewan</label>
                             <input type="text" class="form-control" id="inputJenisHewan" value="<?php echo $peliharan['nama_binatang']; ?>" readonly>
                         </div>
-
-                        <div class="form-group col-md-6">
-                            <label for="inputAlamat">Alamat</label>
-                            <input type="text" class="form-control" id="inputAlamat" value="<?php echo $index['alamat']; ?>" readonly>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-4">
+                        <div class="form-group col col-md-4">
                             <label for="inputNamaHewan">Nama Peliharaan</label>
                             <input type="text" class="form-control" id="inputNamaHewan" value="<?php echo $peliharan['nama_hewan']; ?>" readonly>
                         </div>
@@ -88,8 +81,8 @@ $data_profil = $db->tampil_profil_member($email);
                     <?php
                     }
                     ?>
-                    <div class="form-row flex">
-                        <div class="form-group ">
+                    <div class="row align-items-end mt-3">
+                        <div class="form-group col float-end col-md-6">
                             <button class="btn btn-hapus align-items-end" style="background-color: #F81F45;">
                                 <a href="../Database/hapus_profil.php?email=<?php echo $index['email'];?>" onclick="hapusProfil();" style="color: white; text-decoration: none">Hapus Profil
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
@@ -106,12 +99,7 @@ $data_profil = $db->tampil_profil_member($email);
                                     </svg>
                                 </a>
                             </button>
-                            </button>
                         </div>
-                        <div class="form-group col-6">
-
-                        </div>
-                    </div>
                 </form>
                 <?php
                 }
@@ -124,8 +112,8 @@ $data_profil = $db->tampil_profil_member($email);
 <!-- Bootstrap JS and dependencies if needed -->
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
 <script>
     function hapusProfil() {
         return confirm("Apakah anda yakin ingin menghapus akun ?");

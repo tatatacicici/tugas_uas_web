@@ -5,21 +5,25 @@
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    foreach ($db->login($email, $password) as $result) {
+$result = $db->login($email, $password);
+if(!empty($result)){
+    foreach ($result as $auth) {
         session_start();
         $_SESSION["email"] = $email;
         $_SESSION["password"] = $password;
-        $pass = $result['password'];
-        $roles = $result['roles'];
-        if ($roles == 'admin')
+        $roles = $auth['roles'];
+        $pass = $auth['password'];
+        if (($roles == 'admin') AND ($password == $pass)) {
             header('Location: ../Admin/data_member.php');
-        else if ($roles == 'user')
+        }else if (($roles == 'user')  AND ($password == $pass)) {
             header('Location: ../Profil/profil.php');
-        else {
-            echo '<script>
+        }
+    }
+}
+else{
+    echo '<script>
                  alert("Password Salah");
                  document.location="login.php";
                 </script>';
-        }
 }
 ?>

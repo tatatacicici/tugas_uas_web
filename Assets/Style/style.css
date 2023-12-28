@@ -8,11 +8,12 @@
     }
     
     .navbar-brand {
+        margin-left: 70px;!important;
         color: black;
         font-size: 28px;
         font-weight: 700;
     }
-    
+
     .navbar-brand:hover {
         color: black;
         cursor: default !important;
@@ -59,10 +60,18 @@
         color: #FFFFFF;
         background-color: #F81F45;
         border-radius: 5px;
+        margin-right: 100px;
         padding: 5px 15px;
         font-family: 'Quicksand', sans-serif;
         font-weight: 700;
         font-size: 17px;
+        transition: transform ease-in .3s;
+    }
+    .appointment-link:hover{
+        color: #FFFFFF;
+        background-color: #F81F45;
+        border: none;
+        transform: scale(1.1);
     }
     /*Welcome*/
     
@@ -172,4 +181,36 @@
         font-weight: bold;
         background-color: #FFD700;
         color: white;
+    }
+
+    .tombol-dokter{
+        background-color: #F81F45;
+        color: white;
+        font-family: 'QuickSand', sans-serif;
+        font-weight: bold;
+        border: none;
+    }
+    .tombol-dokter:hover{
+        background-color: #FFD700;
+        color: black;
+    }
+    /*Layanan*/
+.kontainer-layanan{
+    margin-top: 50px;
+}
+    .daftar-layanan{
+        background-color: #F81F45;
+        color: white;
+        font-weight: normal;
+        border: none;
+        border-radius: 35px;
+    }
+    .judul-layanan{
+        font-family: 'QuickSand', sans-serif;
+        font-weight: bold;
+        font-size: 23px;
+    }
+    .text-layanan{
+        font-family: 'Poppins',sans-serif;
+        font-weight: normal;
     }
