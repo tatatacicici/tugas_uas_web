@@ -13,11 +13,23 @@ class Database
 
     public function __construct()
     {
-        $this->host = getenv('DB_HOST') ?: "localhost";
-        $this->username = getenv('DB_USER') ?: "root";
-        $this->passwd = getenv('DB_PASS') !== false ? getenv('DB_PASS') : "";
-        $this->database = getenv('DB_NAME') ?: "dokter_hewan";
-        $port = getenv('DB_PORT') ?: "3306";
+        // 1. Cek variabel URL lengkap (Railway MYSQL_URL atau DATABASE_URL)
+        $db_url = getenv('MYSQL_URL') ?: getenv('DATABASE_URL');
+        if (!empty($db_url)) {
+            $parsed = parse_url($db_url);
+            $this->host = $parsed['host'] ?? 'localhost';
+            $port = $parsed['port'] ?? 3306;
+            $this->username = $parsed['user'] ?? 'root';
+            $this->passwd = $parsed['pass'] ?? '';
+            $this->database = isset($parsed['path']) ? ltrim($parsed['path'], '/') : 'dokter_hewan';
+        } else {
+            // 2. Fallback variabel individual (Railway, Docker Compose, atau lokal)
+            $this->host = getenv('DB_HOST') ?: getenv('MYSQLHOST') ?: getenv('MYSQL_HOST') ?: "localhost";
+            $this->username = getenv('DB_USER') ?: getenv('MYSQLUSER') ?: getenv('MYSQL_USER') ?: "root";
+            $this->passwd = getenv('DB_PASS') !== false ? getenv('DB_PASS') : (getenv('MYSQLPASSWORD') ?: getenv('MYSQL_PASSWORD') ?: "");
+            $this->database = getenv('DB_NAME') ?: getenv('MYSQLDATABASE') ?: getenv('MYSQL_DATABASE') ?: "dokter_hewan";
+            $port = getenv('DB_PORT') ?: getenv('MYSQLPORT') ?: getenv('MYSQL_PORT') ?: "3306";
+        }
 
         try {
             $this->koneksi = new PDO(
@@ -28,9 +40,54 @@ class Database
             $this->koneksi->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $this->koneksi->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
             $this->koneksi->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+
+            // Inisialisasi skema dan seed awal otomatis jika tabel belum dibuat di database cloud
+            $this->ensureSchema();
         } catch (PDOException $e) {
             error_log("Database connection error: " . $e->getMessage());
-            die("Koneksi database gagal. Silakan hubungi administrator.");
+            $error_detail = htmlspecialchars($e->getMessage());
+            die("
+            <div style='font-family:Segoe UI,Tahoma,sans-serif;max-width:650px;margin:60px auto;padding:28px;border:1px solid #f5c2c7;background:#fff5f5;color:#842029;border-radius:12px;box-shadow:0 10px 25px rgba(0,0,0,0.05);'>
+                <h3 style='margin-top:0;display:flex;align-items:center;gap:8px;'>⚠️ Gagal Menghubungkan ke Database</h3>
+                <p style='color:#555;'>Aplikasi web tidak dapat terhubung ke server database dengan konfigurasi saat ini:</p>
+                <ul style='background:#fff;padding:12px 25px;border-radius:8px;border:1px solid #fed7d7;font-family:monospace;font-size:0.9rem;color:#333;'>
+                    <li>Host: <strong>{$this->host}</strong></li>
+                    <li>Port: <strong>{$port}</strong></li>
+                    <li>Database: <strong>{$this->database}</strong></li>
+                    <li>User: <strong>{$this->username}</strong></li>
+                </ul>
+                <p><strong>Pesan Sistem:</strong> <code style='background:#fed7d7;padding:2px 6px;border-radius:4px;'>{$error_detail}</code></p>
+                <hr style='border:0;border-top:1px solid #f5c2c7;margin:20px 0;'/>
+                <h4 style='margin-bottom:8px;color:#842029;'>🛠️ Solusi di Railway:</h4>
+                <ol style='padding-left:20px;font-size:0.92rem;line-height:1.6;color:#444;'>
+                    <li>Buka project Anda di dashboard <strong>Railway</strong>.</li>
+                    <li>Klik <strong>+ New</strong> &rarr; pilih <strong>Database</strong> &rarr; pilih <strong>Add MySQL</strong>.</li>
+                    <li>Di service web Anda, buka tab <strong>Variables</strong> &rarr; klik <strong>Add Reference Variable</strong> &rarr; pilih variabel database (<code>MYSQLHOST</code>, <code>MYSQLUSER</code>, <code>MYSQLPASSWORD</code>, <code>MYSQLPORT</code>, <code>MYSQLDATABASE</code> atau <code>MYSQL_URL</code>).</li>
+                </ol>
+            </div>
+            ");
+        }
+    }
+
+    /**
+     * Otomatis inisialisasi tabel dan data awal jika tabel members belum ada
+     */
+    private function ensureSchema()
+    {
+        try {
+            $check = $this->koneksi->query("SHOW TABLES LIKE 'members'");
+            if ($check && $check->rowCount() === 0) {
+                $schema_file = __DIR__ . '/schema.sql';
+                if (file_exists($schema_file)) {
+                    $sql = file_get_contents($schema_file);
+                    // Hapus perintah CREATE DATABASE dan USE agar kueri tabel masuk ke database aktif
+                    $sql = preg_replace('/CREATE DATABASE[^;]+;/i', '', $sql);
+                    $sql = preg_replace('/USE[^;]+;/i', '', $sql);
+                    $this->koneksi->exec($sql);
+                }
+            }
+        } catch (Exception $ex) {
+            error_log("Schema auto-init notice: " . $ex->getMessage());
         }
     }
 
