@@ -1,38 +1,28 @@
-FROM php:8.3-fpm-alpine
+FROM php:8.3-apache
 
-# Install Nginx dan driver database MySQL
-RUN apk add --no-cache nginx gettext \
-    && docker-php-ext-install pdo pdo_mysql mysqli
+# Install ekstensi database MySQL
+RUN docker-php-ext-install pdo pdo_mysql mysqli
+
+# Hindari peringatan ServerName
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
+
+# Dukungan dynamic PORT bawaan Railway
+ENV PORT=80
+RUN sed -i "s/80/\${PORT}/g" /etc/apache2/ports.conf /etc/apache2/sites-available/000-default.conf
+
+# Aktifkan rewrite module
+RUN a2enmod rewrite
+
+# Rekomendasi PHP production settings
+RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 
 WORKDIR /var/www/html
 
 COPY . /var/www/html/
 
-RUN chown -R www-data:www-data /var/www/html \
-    && mkdir -p /run/nginx /var/log/nginx
+RUN chown -R www-data:www-data /var/www/html
 
-# Template konfigurasi Nginx
-RUN echo 'server { \
-    listen ${PORT} default_server; \
-    root /var/www/html; \
-    index index.php index.html Admin.php; \
-    location / { \
-        try_files $uri $uri/ /index.php?$query_string; \
-    } \
-    location ~ \.php$ { \
-        fastcgi_pass 127.0.0.1:9000; \
-        fastcgi_index index.php; \
-        include fastcgi_params; \
-        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name; \
-    } \
-}' > /etc/nginx/http.d/default.conf.template
+EXPOSE 80
 
-# Buat runner script agar port Railway terpasang otomatis dan kedua proses berjalan
-RUN echo '#!/bin/sh' > /start.sh \
-    && echo 'export PORT=${PORT:-80}' >> /start.sh \
-    && echo 'envsubst "\$PORT" < /etc/nginx/http.d/default.conf.template > /etc/nginx/http.d/default.conf' >> /start.sh \
-    && echo 'php-fpm -D' >> /start.sh \
-    && echo 'exec nginx -g "daemon off;"' >> /start.sh \
-    && chmod +x /start.sh
-
-CMD ["/start.sh"]
+# Kunci solusi MPM: hapus paksa mpm_event & mpm_worker di runtime, pastikan prefork aktif, lalu jalankan apache
+CMD ["bash", "-c", "rm -f /etc/apache2/mods-enabled/mpm_event.* /etc/apache2/mods-enabled/mpm_worker.* && a2enmod mpm_prefork && exec apache2-foreground"]
