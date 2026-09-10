@@ -3,3 +3,7 @@
 *.md
 docker-compose.yml
 Dockerfile
+.git
+.idea
+.vscode
+*.log
