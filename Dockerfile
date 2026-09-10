@@ -3,6 +3,9 @@ FROM php:8.3-apache
 # Install PDO MySQL driver
 RUN docker-php-ext-install pdo pdo_mysql
 
+# Ensure single MPM module (mpm_prefork) to prevent AH00534 conflict
+RUN a2dismod mpm_event mpm_worker 2>/dev/null || true && a2enmod mpm_prefork
+
 # Enable Apache mod_rewrite
 RUN a2enmod rewrite
 
