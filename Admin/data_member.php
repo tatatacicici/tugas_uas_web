@@ -1,97 +1,80 @@
-
 <?php
 session_start();
 
-// Memeriksa apakah pengguna sudah login
-if (!isset($_SESSION['email'])) {
-    header("Location: ../Auth/login.php");
+if (!isset($_SESSION['email']) || !isset($_SESSION['roles']) || $_SESSION['roles'] !== 'admin') {
+    echo '<script>alert("Akses ditolak. Silakan masuk sebagai admin."); document.location="../Auth/login.php";</script>';
     exit();
 }
 
 $email = $_SESSION['email'];
-$password = $_SESSION['password'];
 include "../Database/config.php";
 $db = new Database();
 $tampilData = $db->tampil_member_admin();
-foreach ($db->login($email, $password) as $index) {
-    $roles = $index['roles'];
-    if($roles == 'admin'){
+
+include "dashboard_admin.php";
 ?>
+    <title>Daftar Member — Admin Paws & Whiskers Care</title>
 
-<!DOCTYPE html>
-<html lang="en">
+<main>
+  <div class="dashboard-container" style="margin-top:2rem;">
+    <h1 class="dashboard-title">Daftar Member</h1>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Reservasi - Paws & Whiskers Care</title>
-    <link href="../Assets/Style/styleJanji.css" rel="stylesheet">
-
-    <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom CSS -->
-    <!-- Fonts -->
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;0,1000;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900;1,1000&family=Oxygen:wght@300;400;700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300;400;500;600;700&display=swap');
-    </style>
-</head>
-
-<body>
-<?php include "dashboard_admin.php"; ?>
-<div class="row">
-    <div class="col my-auto kontainer">
-        <h1 class="text-center mt-4 sub-judul">Daftar Member</h1>
+    <div class="card">
+      <div class="card-header">
+        Semua Member Terdaftar
+      </div>
+      <div class="card-body p-0">
+        <?php if (!empty($tampilData)): ?>
+        <div class="table-responsive">
+          <table class="table-modern">
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Nama</th>
+                <th>Email</th>
+                <th>Telepon</th>
+                <th>Kelamin</th>
+                <th>Alamat</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php $no = 1; foreach ($tampilData as $member): ?>
+              <tr>
+                <td><?php echo $no++; ?></td>
+                <td><strong><?php echo htmlspecialchars($member['nama']); ?></strong></td>
+                <td><?php echo htmlspecialchars($member['email']); ?></td>
+                <td><?php echo htmlspecialchars($member['nomor_telepon']); ?></td>
+                <td><?php echo htmlspecialchars($member['jenis_kelamin']); ?></td>
+                <td style="max-width:180px;"><?php echo htmlspecialchars($member['alamat']); ?></td>
+                <td>
+                  <div class="d-flex gap-1">
+                    <a href="edit_member_admin.php?email=<?php echo urlencode($member['email']); ?>" class="btn btn-gold btn-sm">Edit</a>
+                    <a href="../Database/hapus_profil.php?email=<?php echo urlencode($member['email']); ?>"
+                       class="btn btn-outline-rose btn-sm"
+                       onclick="return confirm('Yakin ingin menghapus member ini?');">Hapus</a>
+                  </div>
+                </td>
+              </tr>
+              <?php endforeach; ?>
+            </tbody>
+          </table>
+        </div>
+        <?php else: ?>
+        <div class="empty-state">
+          <div class="empty-state__icon">
+            <svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+          </div>
+          <h3 class="empty-state__title">Belum Ada Member</h3>
+          <p class="empty-state__desc">Belum ada member yang terdaftar.</p>
+        </div>
+        <?php endif; ?>
+      </div>
     </div>
-</div>
-<div class="mt-5 container">
-    <div class="table-responsive">
-    <?php if (!empty($tampilData)) {?>
-    <table class="table table-bordered">
-        <thead>
-        <tr>
-            <th scope="col">No</th>
-            <th scope="col">Nama</th>
-            <th scope="col">Email</th>
-            <th scope="col">Nomor Telepon</th>
-            <th scope="col">Jenis Kelamin</th>
-            <th scope="col">Alamat</th>
-            <th scope="col">Ubah Akun</th>
-            <th scope="col">Hapus Akun</th>
-        </tr>
-        </thead>
-        <tbody>
-        <?php $no = 1;
-        foreach ($tampilData as $member) { ?>
-        <tr>
-            <th scope="row"><?php echo $no++?></th>
-            <td><?php echo $member['nama']; ?></td>
-            <td><?php echo $member['email']; ?></td>
-            <td><?php echo $member['nomor_telepon']; ?></td>
-            <td><?php echo $member['jenis_kelamin']; ?></td>
-            <td><?php echo $member['alamat']; ?></td>
-            <td><a href="../Admin/edit_member_admin.php?email=<?php echo $member['email']; ?>"><button class="btn btn-edit">Edit Akun</button></a></td>
-            <td><a href="../Database/hapus_profil.php?email=<?php echo $member['email']; ?>"><button class="btn btn-hapus">Hapus Akun</button></a></td>
-        </tr>
-        </tbody>
-        <?php } ?>
-        <?php } else { ?>
-            <p style="text-align: center">Tidak ada Member.</p>
-        <?php } ?>
-    </table>
-    </div>
-</div>
-<!-- Bootstrap JS and dependencies -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  </div>
+</main>
 
+<script src="../Assets/vendor/bootstrap/bootstrap.bundle.min.js"></script>
+<script src="../Assets/js/app.js"></script>
 </body>
-
 </html>
-<?php
-    }else{
-    echo '<script>
-          alert("Akses Ditolak. Silahkan masukkan email dan password anda")
-          document.location="../index.html"</script>';
-}
-}

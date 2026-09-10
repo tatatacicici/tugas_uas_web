@@ -1,125 +1,99 @@
 <?php
 session_start();
 
-// Memeriksa apakah pengguna sudah login
 if (!isset($_SESSION['email'])) {
     header("Location: ../Auth/login.php");
     exit();
 }
 
 $email = $_SESSION['email'];
-$password = $_SESSION['password'];
 include "../Database/config.php";
 $db = new Database();
 $data_profil = $db->tampil_profil_member($email);
+
+include "dashboard.php";
 ?>
+    <title>Profil — Paws & Whiskers Care</title>
 
-<!DOCTYPE html>
-<html lang="en">
+<main>
+  <div class="dashboard-container" style="margin-top:2rem;">
+    <h1 class="dashboard-title">Profil Saya</h1>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile</title>
-    <!-- Include Bootstrap CSS if needed -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <!-- Your custom styles go here -->
-    <link href="../Assets/Style/styleProfil.css" rel="stylesheet">
-</head>
+    <?php if (!empty($data_profil)):
+      $user = $data_profil[0];
+      $initials = !empty($user['nama']) ? strtoupper(substr($user['nama'], 0, 1)) : 'P';
+    ?>
+    <div class="profile-card">
+      <div class="profile-card__header">
+        <div class="profile-card__avatar"><?php echo $initials; ?></div>
+        <h2 style="margin:0;font-size:1.3rem;"><?php echo htmlspecialchars($user['nama']); ?></h2>
+        <p style="margin:0;opacity:0.8;font-size:0.9rem;"><?php echo htmlspecialchars($user['email']); ?></p>
+      </div>
 
-<body style="background-color: #f8f7f3">
-<!-- Include the dashboard.php file -->
-<?php include "dashboard.php"; ?>
-<section id="profil">
-    <div class="container mt-2 flex-column kontainer">
-        <div class="row">
-            <div class="col-10">
-                <h1>Profil Pengguna</h1>
-            </div>
-            <div class="col-2 mr-1">
-            </div>
+      <div class="profile-card__body">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label text-muted" style="font-size:0.8rem;">Nama Lengkap</label>
+            <p style="font-weight:600;margin-bottom:0;"><?php echo htmlspecialchars($user['nama']); ?></p>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label text-muted" style="font-size:0.8rem;">Jenis Kelamin</label>
+            <p style="font-weight:600;margin-bottom:0;"><?php echo htmlspecialchars($user['jenis_kelamin']); ?></p>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label text-muted" style="font-size:0.8rem;">Email</label>
+            <p style="font-weight:600;margin-bottom:0;"><?php echo htmlspecialchars($user['email']); ?></p>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label text-muted" style="font-size:0.8rem;">Nomor Telepon</label>
+            <p style="font-weight:600;margin-bottom:0;"><?php echo htmlspecialchars($user['nomor_telepon']); ?></p>
+          </div>
+          <div class="col-12">
+            <label class="form-label text-muted" style="font-size:0.8rem;">Alamat</label>
+            <p style="font-weight:600;margin-bottom:0;"><?php echo htmlspecialchars($user['alamat']); ?></p>
+          </div>
         </div>
-        <div class="card">
-            <div class="card card-body">
-                <?php foreach ($data_profil as $index){
-                ?>
-                <form>
-                    <div class="row align-items-start">
-                            <div class="form-group col col-md-6">
-                                <label for="inputNama">Nama</label>
-                                <input type="text" class="form-control" id="inputNama" value="<?php echo $index['nama']; ?>" readonly>
-                            </div>
-                            <div class="form-group col col-md-6">
-                                <label for="inputJenisKelamin">Jenis Kelamin</label>
-                                <input type="text" class="form-control" id="inputJenisKelamin" value="<?php echo $index['jenis_kelamin']; ?>" readonly>
-                            </div>
-                    </div>
-                    <div class="row align-items-start">
-                        <div class="form-group col col-md-6">
-                            <label for="inputEmail">Email</label>
-                            <input type="email" class="form-control" id="inputEmail" value="<?php echo $index['email']; ?>" readonly>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="inputNomorTelepon">Nomor Telepon</label>
-                            <input type="text" class="form-control" id="inputNomorTelepon" value="<?php echo $index['nomor_telepon']; ?>" readonly>
-                        </div>
-                    </div>
-                    <?php
-                    $data_peliharaan = $db->tampil_reservasi_profil($email);
-                    foreach ($data_peliharaan as $peliharan){
-                    ?>
-                    <div class="row align-items-start">
-                        <div class="form-group col col-md-6">
-                            <label for="inputJenisHewan">Jenis Hewan</label>
-                            <input type="text" class="form-control" id="inputJenisHewan" value="<?php echo $peliharan['nama_binatang']; ?>" readonly>
-                        </div>
-                        <div class="form-group col col-md-4">
-                            <label for="inputNamaHewan">Nama Peliharaan</label>
-                            <input type="text" class="form-control" id="inputNamaHewan" value="<?php echo $peliharan['nama_hewan']; ?>" readonly>
-                        </div>
-                    </div>
-                    <?php
-                    }
-                    ?>
-                    <div class="row align-items-end mt-3">
-                        <div class="form-group col float-end col-md-6">
-                            <button class="btn btn-hapus align-items-end" style="background-color: #F81F45;">
-                                <a href="../Database/hapus_profil.php?email=<?php echo $index['email'];?>" onclick="hapusProfil();" style="color: white; text-decoration: none">Hapus Profil
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
-                                        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
-                                    </svg>
-                                </a>
-                            </button>
-                            <button class="btn btn-hapus align-items-end" style="background-color: #FFD700;">
-                                <a href="edit_member.php" style="color: black; text-decoration: none">Edit Profil
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
-                                    </svg>
-                                </a>
-                            </button>
-                        </div>
-                </form>
-                <?php
-                }
-                ?>
+
+        <?php
+        $data_peliharaan = $db->tampil_reservasi_profil($email);
+        if (!empty($data_peliharaan) && !empty($data_peliharaan[0]['nama_hewan'])):
+        ?>
+        <hr style="margin:1.5rem 0;" />
+        <h3 style="font-size:1rem;font-weight:700;margin-bottom:1rem;">Hewan Peliharaan</h3>
+        <div class="row g-2">
+          <?php foreach ($data_peliharaan as $pet): ?>
+          <div class="col-md-6">
+            <div style="background:var(--clr-off-white);padding:0.75rem 1rem;border-radius:var(--radius-sm);display:flex;align-items:center;gap:0.75rem;">
+              <span style="font-size:1.5rem;">🐾</span>
+              <div>
+                <strong><?php echo htmlspecialchars($pet['nama_hewan']); ?></strong>
+                <br/><small style="color:var(--clr-text-muted);"><?php echo htmlspecialchars($pet['nama_binatang']); ?></small>
+              </div>
             </div>
+          </div>
+          <?php endforeach; ?>
         </div>
+        <?php endif; ?>
+      </div>
+
+      <div class="profile-card__actions">
+        <a href="edit_member.php" class="btn btn-gold btn-sm">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="vertical-align:-1px;margin-right:4px;"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          Edit Profil
+        </a>
+        <a href="../Database/hapus_profil.php?email=<?php echo urlencode($user['email']); ?>"
+           class="btn btn-outline-rose btn-sm"
+           onclick="return confirm('Apakah Anda yakin ingin menghapus akun? Tindakan ini tidak dapat dibatalkan.');">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="vertical-align:-1px;margin-right:4px;"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+          Hapus Akun
+        </a>
+      </div>
     </div>
-</section>
+    <?php endif; ?>
+  </div>
+</main>
 
-<!-- Bootstrap JS and dependencies if needed -->
-
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
-<script>
-    function hapusProfil() {
-        return confirm("Apakah anda yakin ingin menghapus akun ?");
-    }
-</script>
-
+<script src="../Assets/vendor/bootstrap/bootstrap.bundle.min.js"></script>
+<script src="../Assets/js/app.js"></script>
 </body>
-
 </html>

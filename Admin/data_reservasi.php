@@ -1,119 +1,94 @@
-
 <?php
 session_start();
 
-// Memeriksa apakah pengguna sudah login
-if (!isset($_SESSION['email'])) {
-    header("Location: ../Auth/login.php");
+if (!isset($_SESSION['email']) || !isset($_SESSION['roles']) || $_SESSION['roles'] !== 'admin') {
+    echo '<script>alert("Akses ditolak. Silakan masuk sebagai admin."); document.location="../Auth/login.php";</script>';
     exit();
 }
 
 $email = $_SESSION['email'];
-$password = $_SESSION['password'];
 include "../Database/config.php";
 $db = new Database();
 $tampilData = $db->tampil_reservasi_admin();
-foreach ($db->login($email, $password) as $index) {
-    $roles = $index['roles'];
-    if($roles == 'admin'){?>
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Reservasi - Paws & Whiskers Care</title>
-    <link href="../Assets/Style/styleJanji.css" rel="stylesheet">
+include "dashboard_admin.php";
+?>
+    <title>Daftar Reservasi — Admin Paws & Whiskers Care</title>
 
-    <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom CSS -->
-    <!-- Fonts -->
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;0,1000;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900;1,1000&family=Oxygen:wght@300;400;700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300;400;500;600;700&display=swap');
-    </style>
-</head>
+<main>
+  <div class="dashboard-container" style="margin-top:2rem;">
+    <h1 class="dashboard-title">Daftar Reservasi</h1>
 
-<body>
-<?php include "dashboard_admin.php"; ?>
-<section id="reservasi">
-<div class="row">
-    <div class="col my-auto kontainer">
-        <h1 class="text-center mt-4 sub-judul">Daftar Reservasi</h1>
+    <div class="card">
+      <div class="card-header">Semua Reservasi</div>
+      <div class="card-body p-0">
+        <?php if (!empty($tampilData)): ?>
+        <div class="table-responsive">
+          <table class="table-modern">
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Nama</th>
+                <th>Hewan</th>
+                <th>Jenis</th>
+                <th>Tanggal</th>
+                <th>Waktu</th>
+                <th>Dokter</th>
+                <th>Status</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php $no = 1; foreach ($tampilData as $r): ?>
+              <tr>
+                <td><?php echo $no++; ?></td>
+                <td><strong><?php echo htmlspecialchars($r['nama']); ?></strong></td>
+                <td><?php echo htmlspecialchars($r['nama_hewan']); ?></td>
+                <td><?php echo htmlspecialchars($r['nama_binatang']); ?></td>
+                <td><?php echo date('d M Y', strtotime($r['tanggal_reservasi'])); ?></td>
+                <td><?php echo htmlspecialchars($r['waktu_reservasi']); ?></td>
+                <td><?php echo htmlspecialchars($r['nama_dokter']); ?></td>
+                <td>
+                  <?php
+                  $statusClass = match($r['status']) {
+                      'Dijadwalkan' => 'badge-status--scheduled',
+                      'Diubah'      => 'badge-status--changed',
+                      'Dibatalkan'  => 'badge-status--cancelled',
+                      default       => ''
+                  };
+                  ?>
+                  <span class="badge-status <?php echo $statusClass; ?>"><?php echo htmlspecialchars($r['status']); ?></span>
+                </td>
+                <td>
+                  <?php if ($r['status'] !== 'Dibatalkan'): ?>
+                  <div class="d-flex gap-1">
+                    <a href="edit_reservasi_admin.php?id=<?php echo intval($r['id']); ?>" class="btn btn-gold btn-sm">Edit</a>
+                    <a href="hapus_reservasi_admin.php?id=<?php echo intval($r['id']); ?>" class="btn btn-outline-rose btn-sm">Batal</a>
+                  </div>
+                  <?php else: ?>
+                  <span style="color:var(--clr-text-muted);font-size:0.8rem;">—</span>
+                  <?php endif; ?>
+                </td>
+              </tr>
+              <?php endforeach; ?>
+            </tbody>
+          </table>
+        </div>
+        <?php else: ?>
+        <div class="empty-state">
+          <div class="empty-state__icon">
+            <svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          </div>
+          <h3 class="empty-state__title">Belum Ada Reservasi</h3>
+          <p class="empty-state__desc">Belum ada reservasi yang masuk.</p>
+        </div>
+        <?php endif; ?>
+      </div>
     </div>
-</div>
-<div class="mt-5 container">
-    <?php if (!empty($tampilData)) {?>
-    <table class="table table-bordered">
-        <thead>
-        <tr>
-            <th scope="col">No</th>
-            <th scope="col">Nama</th>
-            <th scope="col">Email</th>
-            <th scope="col">Nomor Telepon</th>
-            <th scope="col">Nama Hewan</th>
-            <th scope="col">Jenis Hewan</th>
-            <th scope="col">Tanggal Reservasi</th>
-            <th scope="col">Waktu Reservasi</th>
-            <th scope="col">Dokter</th>
-            <th scope="col">Keluhan</th>
-            <th scope="col">Status</th>
-            <th scope="col">Ubah Reservasi</th>
-            <th scope="col">Batalkan Reservasi</th>
-        </tr>
-        </thead>
-        <tbody>
-        <?php $no = 1;
-        foreach ($tampilData as $reservasi) { ?>
-        <tr>
-            <th scope="row"><?php echo $no++?></th>
-            <td><?php echo $reservasi['nama']; ?></td>
-            <td><?php echo $reservasi['email']; ?></td>
-            <td><?php echo $reservasi['nomor_telepon']; ?></td>
-            <td><?php echo $reservasi['nama_hewan']; ?></td>
-            <td><?php echo $reservasi['nama_binatang']; ?></td>
-            <td><?php echo $reservasi['tanggal_reservasi']; ?></td>
-            <td><?php echo $reservasi['waktu_reservasi']; ?></td>
-            <td><?php echo $reservasi['nama_dokter']; ?></td>
-            <td><?php echo $reservasi['keluhan']; ?></td>
-            <td><?php echo $reservasi['status']; ?></td>
-            <?php
-                if($reservasi['status'] != 'Dibatalkan'){
-            ?>
-            <td><a href="edit_reservasi_admin.php?id=<?php echo $reservasi['id']; ?>"><button class="btn btn-edit">Edit Reservasi</button></a></td>
-            <td><a href="hapus_reservasi_admin.php?id=<?php echo $reservasi['id']; ?>"><button class="btn btn-hapus">Batal Reservasi</button></a></td>
-            <?php
-                }
-                else{
-                   echo '<td>Sudah Dibatalkan</td>';
-                    echo '<td>Sudah Dibatalkan</td>';
-                }
-            ?>
-        </tr>
-        </tbody>
-        <?php } ?>
-        <?php } else { ?>
-            <p>Tidak ada janji.</p>
-        <?php } ?>
-    </table>
-</div>
-</section>
+  </div>
+</main>
 
-<!-- Bootstrap JS and dependencies -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<script>
-    var aktif = document.getElementById("reservasi");
-    aktif.classList.add("active")
-</script>
+<script src="../Assets/vendor/bootstrap/bootstrap.bundle.min.js"></script>
+<script src="../Assets/js/app.js"></script>
 </body>
-
 </html>
-    <?php
-}else{
-    echo '<script>
-      alert("Akses Ditolak. Silahkan masukkan email dan password anda")
-      document.location="../index.html"</script>';
-}
-}

@@ -1,90 +1,91 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Website</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <!-- Custom CSS -->
-    <link href="Assets/Style/stylePesan.css" rel="stylesheet">
-    <!--Fonts    -->
-    <style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Reservasi Anda di Paws & Whiskers Care telah berhasil diproses." />
+    <title>Reservasi Berhasil — Paws & Whiskers Care</title>
 
-    </style>
+    <link href="Assets/vendor/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <link href="Assets/Style/style.css" rel="stylesheet" />
 </head>
-
 <body>
-<nav class="navbar navbar-expand-lg sticky-top">
-    <div class="container-fluid">
-        <a class="navbar-brand ml-4  pl-5" href="#">Paws & Whiskers Care</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg sticky-top" id="mainNavbar">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">
+          <span class="brand-icon">🐾</span>
+          Paws & Whiskers Care
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarMain" aria-controls="navbarMain"
+                aria-expanded="false" aria-label="Toggle navigasi">
+          <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mx-auto ">
-                <li class="nav-item">
-                    <a class="nav-link" href="index.html#home">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="index.html#about">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Services</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="Auth/login.php">Login</a>
-                </li>
-            </ul>
-            <a class="btn btn-primary appointment-link" href="Profil/reservasi.php" role="button">Reservasi</a>
+        <div class="collapse navbar-collapse" id="navbarMain">
+          <ul class="navbar-nav mx-auto">
+            <li class="nav-item"><a class="nav-link" href="index.html#home">Beranda</a></li>
+            <li class="nav-item"><a class="nav-link" href="index.html#about">Tentang Kami</a></li>
+            <li class="nav-item"><a class="nav-link" href="dokter.html">Dokter</a></li>
+            <li class="nav-item"><a class="nav-link" href="Auth/login.php">Masuk</a></li>
+          </ul>
+          <a class="btn btn-reservasi" href="Profil/reservasi.php" role="button">Reservasi Sekarang</a>
         </div>
-    </div>
-</nav>
-<div class="container kontainer-pesan">
-    <div class="row justify-content-center custom-card">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Paws & Whisker Care</div>
-                <div class="card-body">
-                    <h1 class="card-title text-center">Terimakasih telah mempercayai kami,</h1>
-                    <p class="card-text">
-                        Kami ingin memberitahu Anda bahwa reservasi temu dokter di Klinik Paws & Whisker Care telah
-                        berhasil diproses. Kami sangat menghargai kepercayaan Anda untuk memberikan perawatan terbaik
-                        bagi hewan kesayangan Anda.
-                    </p>
-                    <p class="card-text">
-                        Dalam beberapa waktu ke depan, tim medis kami akan menghubungi Anda untuk mengkonfirmasi
-                        jadwal temu dokter dan memberikan informasi lebih lanjut mengenai persiapan yang perlu
-                        dilakukan sebelum kedatangan Anda ke klinik.
-                    </p>
-                    <p class="card-text">
-                        Jika Anda memiliki pertanyaan atau kebutuhan khusus sehubungan dengan reservasi Anda, jangan
-                        ragu untuk menghubungi layanan pelanggan kami. Kami siap membantu dan menjamin bahwa kunjungan
-                        Anda akan berjalan dengan nyaman.
-                    </p>
-                    <p class="card-text">
-                        Terima kasih atas kepercayaan dan kerjasama Anda. Kami berharap dapat memberikan pelayanan yang
-                        berkualitas untuk kesehatan dan kesejahteraan hewan kesayangan Anda.
-                    </p>
-                    <p class="card-text">
-                       Ingin membatalkan janji? <span><a class="card-text span-text" href="Auth/signIn.php">Daftar</a></span> atau sudah punya akun? <span><a class="card-text span-text" href="Auth/login.php">Masuk</a></span>
-                    </p>
-                    <p class="card-text">
-                        Salam hangat,
-                        Tim Paws & Whisker Care
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- About Us END -->
-<!-- Bootstrap JS and dependencies -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
-<!-- Script JS -->
-</body>
+      </div>
+    </nav>
 
+    <main>
+      <section class="thank-you section">
+        <div class="container">
+          <div class="thank-you__card reveal reveal--scale">
+            <!-- Success Icon -->
+            <div class="thank-you__icon">
+              <svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </div>
+
+            <h1 class="thank-you__title">Reservasi Berhasil!</h1>
+
+            <div class="thank-you__text">
+              <p>
+                Terima kasih telah mempercayai <strong>Paws & Whiskers Care</strong>.
+                Reservasi temu dokter Anda telah berhasil diproses.
+              </p>
+              <p>
+                Tim medis kami akan menghubungi Anda untuk mengkonfirmasi jadwal
+                dan memberikan informasi persiapan sebelum kedatangan.
+              </p>
+              <p>
+                Jika memiliki pertanyaan, jangan ragu menghubungi layanan pelanggan kami.
+                Kami siap membantu agar kunjungan Anda berjalan nyaman.
+              </p>
+            </div>
+
+            <div class="d-flex gap-3 justify-content-center flex-wrap">
+              <a href="Auth/signIn.php" class="btn btn-rose">Daftar Akun</a>
+              <a href="Auth/login.php" class="btn btn-gold">Sudah Punya Akun? Masuk</a>
+            </div>
+
+            <hr style="margin: 2rem 0 1rem; border-color: var(--clr-border);" />
+            <p style="color: var(--clr-text-muted); font-size: 0.9rem; margin:0;">
+              Salam hangat, <br/><strong>Tim Paws & Whiskers Care</strong>
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer__bottom" style="margin-top:0; border-top:none; padding-top:0;">
+          <p>&copy; 2024 Paws & Whiskers Care. Seluruh hak cipta dilindungi.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="Assets/vendor/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="Assets/js/app.js"></script>
+</body>
 </html>

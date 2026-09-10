@@ -1,14 +1,23 @@
 <?php
+/**
+ * Admin: Batalkan Reservasi — Paws & Whiskers Care
+ */
 session_start();
-$email = $_SESSION['email'];
+
+if (!isset($_SESSION['email']) || !isset($_SESSION['roles']) || $_SESSION['roles'] !== 'admin') {
+    header("Location: ../Auth/login.php");
+    exit();
+}
+
 include 'config.php';
 
-
-if(isset($_GET['id'])){
-    $id = $_GET['id'];
-    $database->batal_reservasi($id);
-    header("Location: ../Admin/data_reservasi.php");
-}else{
-    header("../Admin/data_konfirmasi_hapus.php");
+if (!isset($_GET['id'])) {
+    header('Location: ../Admin/data_konfirmasi_hapus.php');
+    exit();
 }
+
+$id = intval($_GET['id']);
+$database->batal_reservasi($id);
+header("Location: ../Admin/data_reservasi.php");
+exit();
 ?>

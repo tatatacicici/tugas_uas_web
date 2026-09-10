@@ -1,86 +1,70 @@
 <?php
 session_start();
 
-include "../Database/config.php";
-$db = new Database();
-
-// Memeriksa apakah pengguna sudah login
 if (!isset($_SESSION['email'])) {
-    header("Location: Auth/login.php");
+    header("Location: ../Auth/login.php");
     exit();
 }
 
 $email = $_SESSION['email'];
-$data_member = $db->tampil_member_email($email);
+include "../Database/config.php";
+$db = new Database();
+$data_profil = $db->tampil_profil_member($email);
 
+include "dashboard.php";
 ?>
+    <title>Edit Profil — Paws & Whiskers Care</title>
 
-<!DOCTYPE html>
-<html lang="en">
+<main>
+  <div class="dashboard-container" style="margin-top:2rem;">
+    <h1 class="dashboard-title">Edit Profil</h1>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Member - Paws & Whiskers Care</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-</head>
+    <?php if (!empty($data_profil)):
+      $user = $data_profil[0];
+    ?>
+    <div class="card" style="max-width:720px;">
+      <div class="card-header">Edit Data Profil</div>
+      <div class="card-body">
+        <form action="../Database/edit_data_member.php" method="post">
+          <input type="hidden" name="email" value="<?php echo htmlspecialchars($user['email']); ?>" />
 
-<body>
-<?php include "dashboard.php"; ?>
-<div class="row">
-    <div class="col my-auto kontainer">
-        <h1 class="text-center mt-4 sub-judul">Edit Member</h1>
-        <p class="text-center isi">Anda dapat mengubah akun member anda di web Paws & Whisker Care.</p>
+          <div class="form-group">
+            <label for="nama">Nama Lengkap</label>
+            <input type="text" class="form-control" id="nama" name="nama"
+                   value="<?php echo htmlspecialchars($user['nama']); ?>" required />
+          </div>
+
+          <div class="form-group">
+            <label for="jenis_kelamin">Jenis Kelamin</label>
+            <select class="form-select" id="jenis_kelamin" name="jenis_kelamin" required>
+              <option value="Laki-laki" <?php echo ($user['jenis_kelamin'] === 'Laki-laki') ? 'selected' : ''; ?>>Laki-laki</option>
+              <option value="Perempuan" <?php echo ($user['jenis_kelamin'] === 'Perempuan') ? 'selected' : ''; ?>>Perempuan</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="nomor_telepon">Nomor Telepon</label>
+            <input type="tel" class="form-control" id="nomor_telepon" name="nomor_telepon"
+                   value="<?php echo htmlspecialchars($user['nomor_telepon']); ?>" required />
+          </div>
+
+          <div class="form-group">
+            <label for="alamat">Alamat</label>
+            <textarea class="form-control" id="alamat" name="alamat" rows="3" required><?php echo htmlspecialchars($user['alamat']); ?></textarea>
+          </div>
+
+          <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-gold">Simpan Perubahan</button>
+            <a href="profil.php" class="btn btn-outline-rose">Batal</a>
+          </div>
+        </form>
+      </div>
     </div>
-</div>
+    <?php endif; ?>
+  </div>
+</main>
 
-<div class="container mt-5 kontainer">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Edit Member</div>
-                <div class="card-body">
-                    <!-- Form Edit Member -->
-                    <form action="../Database/edit_data_member.php" method="post">
-                        <?php
-                        foreach ($data_member as $index){
-                        ?>
-                        <div class="form-group">
-                            <label for="nama">Nama:</label>
-                                <input type="text" class="form-control" id="nama" name="nama" value="<?php echo $index['nama']; ?>" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="jenis_kelamin">Jenis Kelamin:</label>
-                            <select class="form-control" id="jenis_kelamin" name="jenis_kelamin" required>
-                                <option value="Laki-laki" <?php echo ($index['jenis_kelamin'] === 'Laki-laki') ? 'selected' : ''; ?>>Laki-laki</option>
-                                <option value="Perempuan" <?php echo ($index['jenis_kelamin'] === 'Perempuan') ? 'selected' : ''; ?>>Perempuan</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="nomor_telepon">Nomor Telepon:</label>
-                            <input type="tel" class="form-control" id="nomor_telepon" name="nomor_telepon" value="<?php echo $index['nomor_telepon']; ?>" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="alamat">Alamat:</label>
-                            <textarea class="form-control" id="alamat" name="alamat" rows="3" required><?php echo $index['alamat']; ?></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
-                        <?php
-                        }
-                        ?>
-                    </form>
-
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Bootstrap JS and dependencies -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="../Assets/vendor/bootstrap/bootstrap.bundle.min.js"></script>
+<script src="../Assets/js/app.js"></script>
 </body>
-
 </html>

@@ -1,209 +1,294 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Website</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+    <meta name="description" content="Paws & Whiskers Care — Klinik hewan terpercaya dengan perawatan berkualitas dan sentuhan penuh kasih sayang untuk sahabat berbulu Anda." />
+    <title>Paws & Whiskers Care — Klinik Hewan Terpercaya</title>
+
+    <!-- Bootstrap 5.3.3 CSS -->
+    <link href="Assets/vendor/bootstrap/bootstrap.min.css" rel="stylesheet" />
     <!-- Custom CSS -->
     <link href="Assets/Style/style.css" rel="stylesheet" />
-    <!--Fonts    -->
-    <style></style>
   </head>
 
   <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg sticky-top">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">Paws & Whiskers Care</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <!-- ── Navbar ──────────────────────────── -->
+    <nav class="navbar navbar-expand-lg sticky-top" id="mainNavbar">
+      <div class="container">
+        <a class="navbar-brand" href="#">
+          <span class="brand-icon">🐾</span>
+          Paws & Whiskers Care
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarMain" aria-controls="navbarMain"
+                aria-expanded="false" aria-label="Toggle navigasi">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="collapse navbar-collapse" id="navbarMain">
           <ul class="navbar-nav mx-auto">
             <li class="nav-item">
-              <a class="nav-link" href="index.html#home">Home</a>
+              <a class="nav-link active" href="#home">Beranda</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="index.html#about">About</a>
+              <a class="nav-link" href="#about">Tentang Kami</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="dokter.html">Services</a>
+              <a class="nav-link" href="#services">Layanan</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="Auth/login.php">Login</a>
+              <a class="nav-link" href="dokter.html">Dokter</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="Auth/login.php">Masuk</a>
             </li>
           </ul>
-          <a class="btn btn-primary appointment-link" href="Profil/reservasi.php" role="button">Reservasi</a>
+          <a class="btn btn-reservasi" href="Profil/reservasi.php" role="button">
+            Reservasi Sekarang
+          </a>
         </div>
       </div>
     </nav>
-    <!-- Hello -->
-    <section id="home">
-      <div class="Hello Awal">
-        <div class="cover"></div>
+
+    <main>
+      <!-- ── Hero Section ───────────────────── -->
+      <section id="home" class="hero">
+        <div class="hero__bg"></div>
+        <div class="hero__overlay"></div>
         <div class="container">
-          <div class="row">
-            <div class="col my-auto">
-              <h2 class="selamat">Selamat Datang di</h2>
-              <h1 class="paws">Paws & Whisker Care</h1>
-              <p class="tagline">Tempat di Mana Sentuhan Lembut Menjadi Satu dengan Perawatan dan Cinta untuk Teman Berbulu Anda.</p>
+          <div class="hero__content">
+            <p class="hero__greeting">Selamat Datang di</p>
+            <h1 class="hero__title">
+              Paws & Whiskers
+              <span>Care</span>
+            </h1>
+            <p class="hero__tagline">
+              Tempat di mana sentuhan lembut menjadi satu dengan perawatan dan cinta
+              untuk teman berbulu Anda. Kami berkomitmen memberikan pelayanan terbaik
+              bagi hewan peliharaan kesayangan Anda.
+            </p>
+            <div class="hero__actions">
+              <a href="Profil/reservasi.php" class="btn-primary-custom">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                Buat Reservasi
+              </a>
+              <a href="#about" class="btn-secondary-custom">
+                Pelajari Lebih Lanjut
+              </a>
+            </div>
+
+            <div class="hero__stat-bar">
+              <div class="hero__stat">
+                <h3><span data-counter="1500">0</span>+</h3>
+                <p>Pasien Ditangani</p>
+              </div>
+              <div class="hero__stat">
+                <h3><span data-counter="4">0</span></h3>
+                <p>Dokter Berpengalaman</p>
+              </div>
+              <div class="hero__stat">
+                <h3><span data-counter="8">0</span>+</h3>
+                <p>Jenis Peliharaan</p>
+              </div>
+              <div class="hero__stat">
+                <h3><span data-counter="5">0</span></h3>
+                <p>Tahun Berpengalaman</p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <!-- Hello End -->
-      <!-- Tiga Menu-->
-      <div class="tiga-menu">
-        <div class="container mt-5">
-          <div class="row text-center justify-content-center align-items-center">
-            <div class="col-md-4">
-              <div class="container-gambar">
-                <a href="Profil/reservasi.php">
-                  <img src="Assets/Images/reservasi.svg" class="img-fluid" />
-                </a>
-              </div>
-              <p>Lakukan Reservasi</p>
+      </section>
+
+      <!-- ── Feature Cards ──────────────────── -->
+      <section class="features" id="features">
+        <div class="container">
+          <div class="row g-4 justify-content-center reveal-group">
+            <div class="col-md-4 reveal">
+              <a href="Profil/reservasi.php" style="text-decoration:none;color:inherit;">
+                <div class="feature-card">
+                  <div class="feature-card__icon">
+                    <img src="Assets/Images/reservasi.svg" alt="Ikon reservasi" />
+                  </div>
+                  <h3 class="feature-card__title">Lakukan Reservasi</h3>
+                  <p class="feature-card__desc">Jadwalkan kunjungan untuk hewan peliharaan Anda dengan mudah dan cepat secara online.</p>
+                </div>
+              </a>
             </div>
-            <div class="col-md-4">
-              <div class="container-gambar">
-                <a href="Auth/signIn.php">
-                  <img src="Assets/Images/log-in.svg" class="img-fluid" />
-                </a>
-              </div>
-              <p>Jadi Member</p>
+            <div class="col-md-4 reveal">
+              <a href="Auth/signIn.php" style="text-decoration:none;color:inherit;">
+                <div class="feature-card">
+                  <div class="feature-card__icon">
+                    <img src="Assets/Images/log-in.svg" alt="Ikon daftar" />
+                  </div>
+                  <h3 class="feature-card__title">Jadi Member</h3>
+                  <p class="feature-card__desc">Daftar sebagai member untuk menikmati kemudahan kelola reservasi dan profil Anda.</p>
+                </div>
+              </a>
             </div>
-            <div class="col-md-4">
-              <div class="container-gambar">
-                <a href="dokter.html">
-                  <img src="Assets/Images/user.svg" class="img-fluid" />
-                </a>
-              </div>
-              <p>Lihat Para Dokter Kami</p>
+            <div class="col-md-4 reveal">
+              <a href="dokter.html" style="text-decoration:none;color:inherit;">
+                <div class="feature-card">
+                  <div class="feature-card__icon">
+                    <img src="Assets/Images/user.svg" alt="Ikon dokter" />
+                  </div>
+                  <h3 class="feature-card__title">Lihat Para Dokter Kami</h3>
+                  <p class="feature-card__desc">Kenali tim dokter hewan berpengalaman yang siap merawat sahabat Anda.</p>
+                </div>
+              </a>
             </div>
           </div>
         </div>
-      </div>
-    </section>
-    <!-- Tiga Menu END -->
-    <!-- About Us -->
-    <section id="about">
-      <div class="container about-container">
-        <h1 class="title text-center" style="color: white">Tentang Kami</h1>
-        <div class="row p-5">
-          <div class="col text-center">
-            <img src="Assets/Images/gambar1.jpg" alt="" />
+      </section>
+
+      <!-- ── About Us ───────────────────────── -->
+      <section id="about" class="about section">
+        <div class="container">
+          <h2 class="section-title">Tentang Kami</h2>
+          <p class="section-subtitle" style="color:rgba(255,255,255,0.7);">
+            Kenali lebih dekat Paws & Whiskers Care, tempat perawatan terbaik untuk hewan kesayangan Anda.
+          </p>
+          <div class="row align-items-center g-5">
+            <div class="col-lg-5 reveal reveal--left">
+              <div class="about__image-wrapper">
+                <img src="Assets/Images/gambar1.jpg" alt="Suasana klinik Paws & Whiskers Care" />
+              </div>
+            </div>
+            <div class="col-lg-7 reveal reveal--right">
+              <p class="about__text">
+                Selamat datang di <strong>Paws & Whiskers Care Veterinary Clinic</strong>,
+                tempat di mana perawatan hewan berkualitas bertemu dengan kelembutan sayang.
+                Sebagai klinik dokter hewan yang berkomitmen untuk memberikan pelayanan terbaik
+                bagi hewan peliharaan Anda, kami menjunjung tinggi standar keahlian medis dan
+                memberikan sentuhan penuh perhatian pada setiap makhluk yang datang ke kami.
+              </p>
+              <p class="about__text">
+                Dengan tim dokter hewan berpengalaman dan fasilitas modern, kami siap memberikan
+                perawatan menyeluruh — mulai dari pemeriksaan kesehatan rutin, vaksinasi, hingga
+                penanganan medis khusus. Kepercayaan Anda adalah prioritas kami.
+              </p>
+              <a href="dokter.html" class="btn-primary-custom" style="margin-top:1rem;">
+                Kenali Tim Kami
+              </a>
+            </div>
           </div>
-          <div class="col text-white">
-            <p>
-              Selamat datang di Paws and Whisker Care Veterinary Clinic, tempat di mana perawatan hewan berkualitas bertemu dengan kelembutan sayang. Sebagai klinik dokter hewan yang berkomitmen untuk memberikan pelayanan terbaik bagi hewan
-              peliharaan Anda, kami di Paws and Whisker Care menjunjung tinggi standar keahlian medis dan memberikan sentuhan penuh perhatian pada setiap makhluk yang datang ke kami.
+        </div>
+      </section>
+
+      <!-- ── Services ───────────────────────── -->
+      <section id="services" class="services section">
+        <div class="container">
+          <h2 class="section-title">Layanan Kami</h2>
+          <p class="section-subtitle">
+            Berbagai layanan kesehatan dan perawatan terbaik untuk sahabat berbulu Anda.
+          </p>
+
+          <!-- Service 1 -->
+          <div class="service-row reveal">
+            <div class="service-card">
+              <img src="Assets/Images/kesehatan.svg" alt="Ikon medical checkup" class="service-card__icon" />
+              <h3 class="service-card__title">Pemeriksaan Kesehatan</h3>
+            </div>
+            <div class="service-text">
+              <p>
+                Pemeriksaan kesehatan menyeluruh untuk hewan peliharaan Anda. Tim dokter kami
+                akan melakukan pengecekan fisik lengkap, termasuk berat badan, suhu tubuh,
+                kondisi mata, telinga, gigi, dan organ dalam. Deteksi dini penyakit adalah
+                kunci kesehatan jangka panjang sahabat Anda.
+              </p>
+            </div>
+          </div>
+
+          <!-- Service 2 -->
+          <div class="service-row reveal">
+            <div class="service-card">
+              <img src="Assets/Images/kesehatan.svg" alt="Ikon vaksinasi" class="service-card__icon" />
+              <h3 class="service-card__title">Vaksinasi</h3>
+            </div>
+            <div class="service-text">
+              <p>
+                Program vaksinasi lengkap sesuai jadwal untuk melindungi hewan peliharaan Anda
+                dari berbagai penyakit berbahaya. Kami menggunakan vaksin berkualitas tinggi dan
+                memberikan panduan jadwal vaksinasi yang tepat untuk setiap jenis hewan.
+              </p>
+            </div>
+          </div>
+
+          <!-- Service 3 -->
+          <div class="service-row reveal">
+            <div class="service-card">
+              <img src="Assets/Images/kesehatan.svg" alt="Ikon perawatan gigi" class="service-card__icon" />
+              <h3 class="service-card__title">Perawatan Gigi</h3>
+            </div>
+            <div class="service-text">
+              <p>
+                Layanan perawatan gigi dan mulut hewan peliharaan, termasuk pembersihan karang
+                gigi, pencabutan gigi yang bermasalah, dan pemeriksaan kesehatan mulut rutin.
+                Gigi sehat berarti hewan peliharaan yang bahagia dan aktif.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ── Footer ───────────────────────────── -->
+    <footer class="footer" id="footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+            <div class="footer__brand">🐾 Paws & Whiskers Care</div>
+            <p class="footer__desc">
+              Klinik hewan terpercaya dengan perawatan berkualitas dan sentuhan penuh kasih sayang
+              untuk sahabat berbulu Anda.
             </p>
           </div>
+          <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+            <h5 class="footer__heading">Navigasi</h5>
+            <ul class="footer__links">
+              <li><a href="#home">Beranda</a></li>
+              <li><a href="#about">Tentang Kami</a></li>
+              <li><a href="#services">Layanan</a></li>
+              <li><a href="dokter.html">Dokter Kami</a></li>
+            </ul>
+          </div>
+          <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+            <h5 class="footer__heading">Layanan</h5>
+            <ul class="footer__links">
+              <li><a href="Profil/reservasi.php">Reservasi</a></li>
+              <li><a href="Auth/login.php">Masuk</a></li>
+              <li><a href="Auth/signIn.php">Daftar</a></li>
+            </ul>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <h5 class="footer__heading">Hubungi Kami</h5>
+            <div class="footer__contact-item">
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span>Jl. Veteriner No. 1, Jakarta Selatan 12345</span>
+            </div>
+            <div class="footer__contact-item">
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              <span>(021) 1234-5678</span>
+            </div>
+            <div class="footer__contact-item">
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              <span>info@pawswhiskers.com</span>
+            </div>
+          </div>
+        </div>
+        <div class="footer__bottom">
+          <p>&copy; 2024 Paws & Whiskers Care. Seluruh hak cipta dilindungi.</p>
         </div>
       </div>
-    </section>
-<!--Services-->
-    <section id="services">
-      <div class="container ">
-        <h1 class="title text-center">Our Services</h1>
-        <div class="container kontainer-layanan">
-        <!--Layanan Pertama-->
-          <div class="row align-items-start mb-4">
-            <div class="col">
-              <div class="card daftar-layanan" style="max-width: 400px">
-                <div class="card-title text-center">
-                  <p class="judul-layanan">Medical Checkup</p>
-                  <div class="card-body">
-                    <img src="/Assets/Images/kesehatan.svg" alt="">
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col">
-              <div class="text-layanan">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta veritatis reprehenderit eius sed ab itaque enim, non officiis. Deleniti doloremque nihil aspernatur corporis velit! Labore minus at pariatur in deleniti!</p>
-              </div>
-            </div>
-          </div>
-          <!--Layanan Pertama END-->
-          <!--Layanan Kedua-->
-          <div class="row align-items-center mb-4">
-            <div class="col order-last order-lg-last">
-              <div class="text-layanan">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta veritatis reprehenderit eius sed ab itaque enim, non officiis. Deleniti doloremque nihil aspernatur corporis velit! Labore minus at pariatur in deleniti!</p>
-              </div>
-            </div>
-            <div class="col order-last order-lg-last">
-              <div class="card daftar-layanan " style="max-width: 400px">
-                <div class="card-title text-center">
-                  <p class="judul-layanan">Vaksinasi</p>
-                  <div class="card-body">
-                    <img src="/Assets/Images/kesehatan.svg" alt="">
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!--Layanan Kedua END-->
-          <!--Layanan Ketiga-->
-          <div class="row align-items-start mb-4">
-            <div class="col">
-              <div class="card daftar-layanan" style="max-width: 400px">
-                <div class="card-title text-center">
-                  <p class="judul-layanan">Medical Checkup</p>
-                  <div class="card-body">
-                    <img src="/Assets/Images/kesehatan.svg" alt="">
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col">
-              <div class="text-layanan">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta veritatis reprehenderit eius sed ab itaque enim, non officiis. Deleniti doloremque nihil aspernatur corporis velit! Labore minus at pariatur in deleniti!</p>
-              </div>
-            </div>
-          </div>
-          <!--Layanan Kedua END-->
-        </div>
-      </div>
-    </section>
-    <!-- About Us END -->
-    <!-- Bootstrap JS and dependencies -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
-    <!-- Script JS -->
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        // Get all section elements
-        var sections = document.querySelectorAll("section");
+    </footer>
 
-        // Get the navbar links
-        var navLinks = document.querySelectorAll(".navbar-nav .nav-link");
+    <!-- Back to Top -->
+    <button class="back-to-top" id="backToTop" aria-label="Kembali ke atas">
+      <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+    </button>
 
-        // Add event listener for scroll
-        window.addEventListener("scroll", function () {
-          var currentScroll = window.scrollY;
-
-          // Check each section's position and update the active state
-          sections.forEach(function (section, index) {
-            var sectionTop = section.offsetTop - 50; // Adjusted for better timing
-            var sectionBottom = sectionTop + section.offsetHeight;
-
-            if (currentScroll >= sectionTop && currentScroll <= sectionBottom) {
-              // Remove the "active" class from all nav links
-              navLinks.forEach(function (link) {
-                link.classList.remove("active");
-              });
-
-              // Add the "active" class to the corresponding nav link
-              navLinks[index].classList.add("active");
-            }
-          });
-        });
-      });
-    </script>
+    <!-- Bootstrap 5.3.3 JS -->
+    <script src="Assets/vendor/bootstrap/bootstrap.bundle.min.js"></script>
+    <!-- App JS -->
+    <script src="Assets/js/app.js"></script>
   </body>
 </html>
