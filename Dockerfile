@@ -1,33 +1,35 @@
-FROM php:8.3-apache
+FROM php:8.3-fpm-alpine
 
-# Install PDO MySQL driver
-RUN docker-php-ext-install pdo pdo_mysql mysqli
+# Install Nginx dan ekstensi database MySQL
+RUN apk add --no-cache nginx \
+    && docker-php-ext-install pdo pdo_mysql mysqli
 
-# Nonaktifkan modul MPM lain secara bersih dan pastikan hanya prefork yang aktif
-RUN a2dismod -f mpm_event mpm_worker || true \
-    && a2enmod mpm_prefork rewrite
-
-# Suppress Apache ServerName warning
-RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
-
-# Support dynamic PORT environment variable untuk Railway
-ENV PORT=80
-RUN sed -i "s/80/\${PORT}/g" /etc/apache2/ports.conf /etc/apache2/sites-available/000-default.conf
-
-# Rekomendasi PHP production settings
-RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
-
+# Siapkan direktori kerja
 WORKDIR /var/www/html
 
-# Salin kode aplikasi
+# Salin seluruh kode aplikasi
 COPY . /var/www/html/
 
-# Pastikan permission aman
-RUN chown -R www-data:www-data /var/www/html
+# Atur permission
+RUN chown -R www-data:www-data /var/www/html \
+    && mkdir -p /run/nginx
 
-# Bersihkan jika ada file konfigurasi apache nyasar yang terbawa dari copy
-RUN a2dismod -f mpm_event mpm_worker || true
+# Konfigurasi Nginx untuk PHP dan dukungan PORT dinamis Railway
+RUN echo 'server { \
+    listen ENV_PORT default_server; \
+    root /var/www/html; \
+    index index.php index.html; \
+    server_name _; \
+    location / { \
+        try_files $uri $uri/ /index.php?$query_string; \
+    } \
+    location ~ \.php$ { \
+        fastcgi_pass 127.0.0.1:9000; \
+        fastcgi_index index.php; \
+        include fastcgi_params; \
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name; \
+    } \
+}' > /etc/nginx/http.d/default.conf
 
-EXPOSE 80
-
-CMD ["apache2-foreground"]
+# Script startup untuk mapping PORT Railway dan menjalankan Nginx + PHP-FPM
+CMD sh -c "sed -i \"s/ENV_PORT/${PORT:-80}/g\" /etc/nginx/http.d/default.conf && php-fpm -D && nginx -g 'daemon off;'"
